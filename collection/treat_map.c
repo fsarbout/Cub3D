@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:46:23 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/11/30 18:59:10 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/04 20:58:18 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void    player(char **map, int i, int j)
         g_data.plyr_angl = M_PI / 2;
     g_data.pos_x = j * TILE + (TILE / 2);
     g_data.pos_y = i * TILE + (TILE / 2);
+    
     printf("there is a player\n");
 }
 void    parse_map(char **map, int i, int j)

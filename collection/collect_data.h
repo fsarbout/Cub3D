@@ -6,13 +6,12 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 19:33:08 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/01 10:57:58 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/10 05:58:41 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLLECT_DATA_H
 # define COLLECT_DATA_H
-
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,7 +26,7 @@
 # define MAX_HEIGHT	1440
 # define W_WIDTH 1000
 # define W_HEIGHT 1000
-# define TILE 20
+# define TILE 64
 # define STEP 20
 # define UP 13
 # define DOWN 1
@@ -36,16 +35,12 @@
 # define RIGHT 2
 # define T_RIGHT 124
 # define T_LEFT 123
-
-//#define  PI acos(-1.0)
-
-///////////////
-
-
+# define FOV 60 * (M_PI / 180)
+# define WALL_S_W 1
+//# define NUM_RAYS g_data.long_l / WALL_S_W
 
 typedef struct s_data
 {
-	int 	ifdda;
 	int		r;
 	int		rsltn_w;
 	int 	rsltn_h;
@@ -82,28 +77,43 @@ typedef struct s_data
 	//////////
 	float pos_x;
 	float pos_y;
+	float pos_xsd;
+	float pos_ysd;
+	int 	side;
+	
 	int 	nbr_lines;
 	int 	endian;
 	int		long_l;
 	int		size_l;
 	int		*addrmlx;
-	// char		*addrmlx;
 	void	*window;
 	void	*imgmlx;
 	int		bpp;
-
-
+	float	horwllhitx;
+	float	horwllhity;
+	float	verwllhitx;
+	float	verwllhity;
+	float	wallhitx;
+	float	wallhity;
+	float 	distance;
+	
 }			t_data;
+
+///////////
 typedef struct  s_mv
 {
-    float	radius;
 	float	turndir;
 	float	walkdir;
 	float 	walkdirsd;
-	float	rtnangl;
 	float	mvspd;
 	float	rtnspd;
-	int		plyr_walkdir;
+	float newxplyr;
+    float newyplyr;
+	int raydown;
+    int rayup;
+    int rayleft;
+    int rayright;
+	float raydist;
 }				t_mv;
 t_mv	g_mv;
 t_data		g_data;
@@ -122,7 +132,6 @@ void 		treat_cllng(char **element);
 int			lenght(char **str);
 void    	check_map(char *mp);
 void		treat_sprite();
-void        my_mlx_pixel_put(int x, int y, int color);
 void    	draw_map();
 void    	rect(int tilex, int tiley,int color);
 void		draw_circle();
@@ -139,9 +148,20 @@ void    	check_sprite(int i, int j);
 void   		parse_map(char **map, int i, int j);
 void    	fill_maplines(char **map);
 void    	if_dif_one(char **map, int i, int j);
-// void    	dda1(double x1, double y1, double x0, double y0);
-void	dda();
-int keyreleased(int key, void *param);
+void		dda();
+int 		keyreleased(int key, void *param);
+int         hit_wall(float x, float y);
+void    	dda_ray(double rayangle);
+void    	cast_rays();
+float    	normalize_angle(float angle);
+void 		print_line (int x1, int y1);
+// void    	ray_castintg(float rayangle ,int column);
+void    	ray_castintg(float rayangle);
+void    	fix_cast_angle(float rayangle);
+void    	move_playeer();
+void    	draw_ray(float x1 , float y1);
+float    calculate_dist(float x2, float y2);
 
+// void    castallrays();
 
 #endif

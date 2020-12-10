@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:55:41 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/11/30 19:42:27 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/10 03:35:55 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void   mlxs()
 	g_data.addrmlx = (int*)mlx_get_data_addr(g_data.imgmlx, &g_data.bpp, &g_data.size_l,
                                  &g_data.endian);
     draw_map();
+    // cast_rays();
     mlx_put_image_to_window(g_data.mlx, g_data.window, g_data.imgmlx, 0, 0);
-    mlx_loop_hook(g_data.mlx , hooking, param);
+    mlx_loop_hook(g_data.mlx ,hooking, param);
     mlx_loop(g_data.mlx);
     printf("mlxs working\n");
 }
@@ -48,15 +49,18 @@ void    draw_map()
             if (g_data.mmp[y][x] == '1')
                 rect(tilex, tiley , 0xFFFFFF);
             else if (g_data.mmp[y][x] == '0' || g_data.mmp[y][x] != ' ')
-                rect(tilex, tiley, 0x990000);
+                rect(tilex, tiley, 0xA0A0A0);
             x++;
         }
         y++;
     }
     draw_circle();
-    dda();
-    // update();
+    // dda();
+    // cast_rays();
+    //   print_line(g_data.wallhitx, g_data.wallhity);  
     printf("draw map working\n");
+    // update();
+    // printf("draw map working\n");
 }
 
 void    rect(int tilex, int tiley, int color)
@@ -72,7 +76,6 @@ void    rect(int tilex, int tiley, int color)
         while (tilex < x)
         {
              g_data.addrmlx[tiley * (g_data.long_l * TILE) + tilex] = color;
-            // my_mlx_pixel_put(tilex, tiley, color);
             tilex++;
         }
         tilex -= TILE - 1;
@@ -86,7 +89,7 @@ void    draw_circle()
     int i;
     int x;
     int y;
-
+ 
     r = 1;
     i = 0;
     x = 0;
@@ -99,11 +102,11 @@ void    draw_circle()
             angle = i * ( M_PI / 180); 
             x = (int)(g_data.pos_x + (r * cos(angle)));
             y = (int)(g_data.pos_y + (r * sin(angle)));
-            g_data.addrmlx[y * (g_data.long_l * TILE) + x] = 0xddFFCC;
+            g_data.addrmlx[y * (g_data.long_l * TILE) + x] = 0x0000FF;
             // my_mlx_pixel_put(x , y ,0xFFFFFF);
             i++;
         }
     r++;
     }
-    printf("draw circle working\n");
+    // printf("draw circle working\n");
  }

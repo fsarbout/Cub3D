@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:00:26 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/11/30 18:34:42 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/09 00:16:30 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
     }
     if (i != 7)
         print_error(10);
-    che_ck_map(i, fd, line, map);
+     che_ck_map(i, fd, line, map);
      printf("collect data working\n");
 }   
 void    che_ck_map(int i, int fd, char *line, char *map)
