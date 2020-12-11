@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 19:33:08 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/10 05:58:41 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/11 01:22:51 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@
 # define T_RIGHT 124
 # define T_LEFT 123
 # define FOV 60 * (M_PI / 180)
-# define WALL_S_W 1
-//# define NUM_RAYS g_data.long_l / WALL_S_W
+# define WALL_S_W 0.5
 
-typedef struct s_data
+typedef struct s_dt
 {
 	int		r;
 	int		rsltn_w;
@@ -96,8 +95,11 @@ typedef struct s_data
 	float	wallhitx;
 	float	wallhity;
 	float 	distance;
-	
-}			t_data;
+	float 	hhitdis;
+	float 	vhitdis;
+	float 	verthit;
+	float 	horzhit;
+}			t_dt;
 
 ///////////
 typedef struct  s_mv
@@ -114,9 +116,10 @@ typedef struct  s_mv
     int rayleft;
     int rayright;
 	float raydist;
+	float rayangle;
 }				t_mv;
 t_mv	g_mv;
-t_data		g_data;
+t_dt		g_dt;
 
 void		print_error(int err_nmbr);
 int			str_of_num(char *str);
@@ -151,17 +154,17 @@ void    	if_dif_one(char **map, int i, int j);
 void		dda();
 int 		keyreleased(int key, void *param);
 int         hit_wall(float x, float y);
-void    	dda_ray(double rayangle);
 void    	cast_rays();
-float    	normalize_angle(float angle);
+float    	normalize_angle();
 void 		print_line (int x1, int y1);
-// void    	ray_castintg(float rayangle ,int column);
-void    	ray_castintg(float rayangle);
-void    	fix_cast_angle(float rayangle);
+void    	ray_castintg();
+void    	fix_cast_angle();
 void    	move_playeer();
 void    	draw_ray(float x1 , float y1);
-float    calculate_dist(float x2, float y2);
-
-// void    castallrays();
+float    	calculate_dist(float x2, float y2);
+void    	horizontal_inter(float xstep, float ystep, float intrceptx, float intrcepty);
+void    	vertical_inter(float xstep, float ystep, float intrceptx, float intrcepty);
+void    	horizontal_loop(float xstep,float ystep,float nxthorzhitx, float nxthorzhity);
+void    	vertical_loop(float xstep,float ystep,float nxtverhitx, float nxtverhity);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:55:41 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/10 03:35:55 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/11 01:25:19 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,50 +17,43 @@ void   mlxs()
     void *param;
 
     param = NULL;
-    g_data.window = mlx_new_window(g_data.mlx, g_data.rsltn_w, g_data.rsltn_h, "Hello!");
-    g_data.imgmlx  = mlx_new_image(g_data.mlx, g_data.long_l * TILE, g_data.nbr_lines * TILE);
-	g_data.addrmlx = (int*)mlx_get_data_addr(g_data.imgmlx, &g_data.bpp, &g_data.size_l,
-                                 &g_data.endian);
+    g_dt.window = mlx_new_window(g_dt.mlx, g_dt.rsltn_w, g_dt.rsltn_h, "Hello!");
+    g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.long_l * TILE, g_dt.nbr_lines * TILE);
+	g_dt.addrmlx = (int*)mlx_get_data_addr(g_dt.imgmlx, &g_dt.bpp, &g_dt.size_l,
+                                 &g_dt.endian);
     draw_map();
-    // cast_rays();
-    mlx_put_image_to_window(g_data.mlx, g_data.window, g_data.imgmlx, 0, 0);
-    mlx_loop_hook(g_data.mlx ,hooking, param);
-    mlx_loop(g_data.mlx);
+    mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0);
+    mlx_loop_hook(g_dt.mlx ,hooking, param);
+    mlx_loop(g_dt.mlx);
     printf("mlxs working\n");
 }
 
-void    draw_map()
+void        draw_map()
 {
 	int		x;
 	int		y;
-    int tilex;
-    int tiley;
+    int     tilex;
+    int     tiley;
     
 	y = 0;
     tilex = 0 ;
     tiley = 0 ;
-	while (y < g_data.nbr_lines)
+	while (y < g_dt.nbr_lines)
     {
         x = 0;
-        while (x < g_data.long_l)
+        while (x < g_dt.long_l)
         {
             tilex = x * TILE;
             tiley = y * TILE;
-            if (g_data.mmp[y][x] == '1')
+            if (g_dt.mmp[y][x] == '1')
                 rect(tilex, tiley , 0xFFFFFF);
-            else if (g_data.mmp[y][x] == '0' || g_data.mmp[y][x] != ' ')
+            else if (g_dt.mmp[y][x] == '0' || g_dt.mmp[y][x] != ' ')
                 rect(tilex, tiley, 0xA0A0A0);
             x++;
         }
         y++;
     }
     draw_circle();
-    // dda();
-    // cast_rays();
-    //   print_line(g_data.wallhitx, g_data.wallhity);  
-    printf("draw map working\n");
-    // update();
-    // printf("draw map working\n");
 }
 
 void    rect(int tilex, int tiley, int color)
@@ -75,20 +68,20 @@ void    rect(int tilex, int tiley, int color)
     {
         while (tilex < x)
         {
-             g_data.addrmlx[tiley * (g_data.long_l * TILE) + tilex] = color;
+             g_dt.addrmlx[tiley * (g_dt.long_l * TILE) + tilex] = color;
             tilex++;
         }
         tilex -= TILE - 1;
         tiley++;
     }
 }
-void    draw_circle()
+void        draw_circle()
 {
-    int r;
-    float angle;
-    int i;
-    int x;
-    int y;
+    int     r;
+    float   angle;
+    int     i;
+    int     x;
+    int     y;
  
     r = 1;
     i = 0;
@@ -100,9 +93,9 @@ void    draw_circle()
         while (i < 360)
         {
             angle = i * ( M_PI / 180); 
-            x = (int)(g_data.pos_x + (r * cos(angle)));
-            y = (int)(g_data.pos_y + (r * sin(angle)));
-            g_data.addrmlx[y * (g_data.long_l * TILE) + x] = 0x0000FF;
+            x = (int)(g_dt.pos_x + (r * cos(angle)));
+            y = (int)(g_dt.pos_y + (r * sin(angle)));
+            g_dt.addrmlx[y * (g_dt.long_l * TILE) + x] = 0x0000FF;
             // my_mlx_pixel_put(x , y ,0xFFFFFF);
             i++;
         }
@@ -110,3 +103,24 @@ void    draw_circle()
     }
     // printf("draw circle working\n");
  }
+ void    print_line (int x1, int y1)
+{
+  int x0 = floor(g_dt.pos_x);
+  int y0 = floor(g_dt.pos_y);
+  int dx =  abs (x1 - x0), sx = x0 < x1 ? 1 : -1;
+  int dy = -abs (y1 - y0), sy = y0 < y1 ? 1 : -1; 
+  int err = dx + dy, e2;
+  
+  while (1)
+  {  
+    if ((int)x0 < 0 || (int)x0 > g_dt.rsltn_w * TILE || (int)y0 < 0 || (int)y0 > g_dt.rsltn_h  * TILE
+        || (int)x0 > g_dt.long_l * TILE || (int)y0 > g_dt.nbr_lines * TILE)
+        break;
+        
+    g_dt.addrmlx[((int)(y0) * (g_dt.long_l * TILE) + (int)(x0))] = 0x0CFCD0;
+    if (x0 == x1 && y0 == y1) break;
+    e2 = 2 * err;
+    if (e2 >= dy) { err += dy; x0 += sx; }
+    if (e2 <= dx) { err += dx; y0 += sy; }
+  }
+}

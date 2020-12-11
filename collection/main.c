@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 18:20:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/11/30 18:40:56 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/11 01:25:45 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int main(int ac, char **av)
         collect_data(line, av);
     mlxs();
     perror("Error: ");
-    free(g_data.mmp);
+    free(g_dt.mmp);
     return (0);
 }

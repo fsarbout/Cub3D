@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:43:12 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/10 05:40:15 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/11 01:19:53 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,50 @@
 
 void    struct_intialize()
 {
-    g_data.r = 0;
-    g_data.rsltn_h = 0;
-    g_data.rsltn_w = 0;
-    g_data.f = 0;
-    g_data.flr_r = 0;
-    g_data.flr_g = 0;
-    g_data.flr_b = 0;
-    g_data.c = 0;
-    g_data.cllng_b = 0;
-    g_data.cllng_g = 0;
-    g_data.cllng_r = 0;
-    g_data.n = 0;
-    g_data.so = 0;
-    g_data.e = 0;
-    g_data.w = 0;
-    g_data.width = 84;
-    g_data.height = 84;
-    g_data.spi  = 0;
-    g_data.spj  = 0;
-    g_data.plyr = 0;
-    g_data.n_path = NULL;
-    g_data.e_path = NULL;
-    g_data.w_path = NULL;
-    g_data.so_path = NULL;
-	g_data.img_no = NULL;
-	g_data.img_ea = NULL;
-	g_data.img_we = NULL;
-    g_data.img_so = NULL;
-    g_data.mmp = NULL;
-    g_data.size_l = 0;
-    g_data.mlx = mlx_init();
-    g_data.nbr_lines = 0;
-	g_data.endian = 0;
-	g_data.long_l = 0;
-	g_data.bpp = 0;
+    g_dt.r = 0;
+    g_dt.rsltn_h = 0;
+    g_dt.rsltn_w = 0;
+    g_dt.f = 0;
+    g_dt.flr_r = 0;
+    g_dt.flr_g = 0;
+    g_dt.flr_b = 0;
+    g_dt.c = 0;
+    g_dt.cllng_b = 0;
+    g_dt.cllng_g = 0;
+    g_dt.cllng_r = 0;
+    g_dt.n = 0;
+    g_dt.so = 0;
+    g_dt.e = 0;
+    g_dt.w = 0;
+    g_dt.width = 84;
+    g_dt.height = 84;
+    g_dt.spi  = 0;
+    g_dt.spj  = 0;
+    g_dt.plyr = 0;
+    g_dt.n_path = NULL;
+    g_dt.e_path = NULL;
+    g_dt.w_path = NULL;
+    g_dt.so_path = NULL;
+	g_dt.img_no = NULL;
+	g_dt.img_ea = NULL;
+	g_dt.img_we = NULL;
+    g_dt.img_so = NULL;
+    g_dt.mmp = NULL;
+    g_dt.size_l = 0;
+    g_dt.mlx = mlx_init();
+    g_dt.nbr_lines = 0;
+	g_dt.endian = 0;
+	g_dt.long_l = 0;
+	g_dt.bpp = 0;
     /////////////////////////////////////////////
     g_mv.turndir = 0;
     g_mv.walkdir = 0;
     g_mv.mvspd  = 2;
     g_mv.rtnspd = 2 * (M_PI / 180 );
-    g_data.pos_x = 0;
-    g_data.pos_y = 0;
-    g_data.pos_xsd = 0;
-    g_data.pos_ysd = 0;
+    g_dt.pos_x = 0;
+    g_dt.pos_y = 0;
+    g_dt.pos_xsd = 0;
+    g_dt.pos_ysd = 0;
     g_mv.newxplyr = 0;
     g_mv.newyplyr = 0;
     g_mv.raydown = 0;
@@ -65,11 +65,16 @@ void    struct_intialize()
     g_mv.rayleft = 0;
     g_mv.rayright = 0;
     g_mv.raydist = 0;
-    g_data.horwllhitx = 0;
-    g_data.horwllhity = 0;
-    g_data.verwllhitx = 0;
-    g_data.verwllhity = 0;
-    g_data.wallhitx = 0;
-    g_data.wallhity = 0;
-    g_data.distance = 0;
+    g_dt.horwllhitx = 0;
+    g_dt.horwllhity = 0;
+    g_dt.verwllhitx = 0;
+    g_dt.verwllhity = 0;
+    g_dt.wallhitx = 0;
+    g_dt.wallhity = 0;
+    g_dt.distance = 0;
+    g_dt.hhitdis = 0;
+    g_dt.vhitdis = 0;
+    g_mv.rayangle = 0;
+    g_dt.horzhit = 0;
+    g_dt.verthit = 0;
 }
