@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 19:33:08 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/11 01:22:51 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/13 05:54:31 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define T_LEFT 123
 # define FOV 60 * (M_PI / 180)
 # define WALL_S_W 0.5
+# define MINIM 0.2
 
 typedef struct s_dt
 {
@@ -79,7 +80,6 @@ typedef struct s_dt
 	float pos_xsd;
 	float pos_ysd;
 	int 	side;
-	
 	int 	nbr_lines;
 	int 	endian;
 	int		long_l;
@@ -99,6 +99,8 @@ typedef struct s_dt
 	float 	vhitdis;
 	float 	verthit;
 	float 	horzhit;
+	int		numrays;
+	int 	wllhitcnt;
 }			t_dt;
 
 ///////////
@@ -117,9 +119,10 @@ typedef struct  s_mv
     int rayright;
 	float raydist;
 	float rayangle;
-}				t_mv;
+}			t_mv;
 t_mv	g_mv;
 t_dt		g_dt;
+
 
 void		print_error(int err_nmbr);
 int			str_of_num(char *str);
@@ -154,10 +157,10 @@ void    	if_dif_one(char **map, int i, int j);
 void		dda();
 int 		keyreleased(int key, void *param);
 int         hit_wall(float x, float y);
-void    	cast_rays();
+void    	cast_rays(t_dt *dt, t_mv *mv);
 float    	normalize_angle();
 void 		print_line (int x1, int y1);
-void    	ray_castintg();
+void    	ray_castintg(t_dt *dt , t_mv *mv, int i);
 void    	fix_cast_angle();
 void    	move_playeer();
 void    	draw_ray(float x1 , float y1);
@@ -166,5 +169,7 @@ void    	horizontal_inter(float xstep, float ystep, float intrceptx, float intrc
 void    	vertical_inter(float xstep, float ystep, float intrceptx, float intrcepty);
 void    	horizontal_loop(float xstep,float ystep,float nxthorzhitx, float nxthorzhity);
 void    	vertical_loop(float xstep,float ystep,float nxtverhitx, float nxtverhity);
+// void		render3d();
+void    render3d(t_dt *dt, t_mv *mv);
 
 #endif

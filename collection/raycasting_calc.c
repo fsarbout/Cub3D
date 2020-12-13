@@ -6,28 +6,26 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 00:34:37 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/11 03:51:50 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/13 06:05:09 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "collect_data.h"
 #include <float.h>
 
-void    cast_rays()
+void    cast_rays(t_dt *dt, t_mv *mv)
 {
-    int numrays;
-    int i;
-    
-    numrays = g_dt.rsltn_w / WALL_S_W;
+    // int numrays;
+    int i; 
+    // g_dt.numrays = g_dt.rsltn_w / WALL_S_W;
     g_mv.rayangle = g_dt.plyr_angl - (FOV / 2);
     i = 0;
-    
-    while (i < numrays)
+    while (i < g_dt.numrays)
     {
         fix_cast_angle();
-        ray_castintg();
-        print_line(g_dt.wallhitx, g_dt.wallhity);
-        g_mv.rayangle += FOV / numrays;
+        ray_castintg(dt, mv, i);
+        print_line(g_dt.wallhitx * MINIM, g_dt.wallhity * MINIM);
+        g_mv.rayangle += FOV / g_dt.numrays;
         i++;
     }
 }
@@ -49,11 +47,11 @@ void    fix_cast_angle()
     g_mv.rayleft = !g_mv.rayright;
 }
 
-void    ray_castintg()
+void    ray_castintg(t_dt *dt , t_mv *mv, int i)
 {
     float xstep;
     float ystep;
-     float intrceptx;
+    float intrceptx;
     float intrcepty;
     
     xstep = 0;
@@ -62,13 +60,39 @@ void    ray_castintg()
     intrcepty = 0;
     horizontal_inter(xstep, ystep, intrceptx, intrcepty);
     vertical_inter(xstep, ystep, intrceptx, intrcepty);
+    mv[i].rayangle = g_mv.rayangle;
+    
+    
     
     g_dt.hhitdis = (g_dt.horzhit) ? calculate_dist(g_dt.horwllhitx,g_dt.horwllhity) : FLT_MAX;
     g_dt.vhitdis = (g_dt.verthit) ? calculate_dist(g_dt.verwllhitx,g_dt.verwllhity) : FLT_MAX;
 
-    g_dt.wallhitx = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.horwllhitx : g_dt.verwllhitx;
+    // g_dt.hhitdis = calculate_dist(g_dt.horwllhitx,g_dt.horwllhity);
+    // g_dt.vhitdis = calculate_dist(g_dt.verwllhitx,g_dt.verwllhity);
+
+  g_dt.wallhitx = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.horwllhitx : g_dt.verwllhitx;
     g_dt.wallhity = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.horwllhity : g_dt.verwllhity;
-    g_dt.distance = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.hhitdis : g_dt.vhitdis;    
+    g_dt.distance = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.hhitdis : g_dt.vhitdis;
+
+    // if (g_dt.vhitdis < g_dt.hhitdis)
+    // {   
+    //     dt[i].distance = g_dt.vhitdis;
+    //     dt[i].wallhitx = g_dt.verwllhitx;
+    //     dt[i].wallhity = g_dt.verwllhity;
+    //     dt[i].wllhitcnt = g_dt.ho
+    //     dt[i]
+
+
+
+    // }
+  
+    
+
+
+
+    
+    dt[i].distance = g_dt.distance;
+    dt[i].verthit = g_dt.verthit;
 }
 float    calculate_dist(float x2, float y2)
 {

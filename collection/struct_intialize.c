@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:43:12 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/11 01:19:53 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/13 05:54:52 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,6 @@ void    struct_intialize()
     g_mv.rayangle = 0;
     g_dt.horzhit = 0;
     g_dt.verthit = 0;
+    g_dt.numrays = 0;
+    g_dt.wllhitcnt = 0;
 }

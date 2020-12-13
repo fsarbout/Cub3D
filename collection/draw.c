@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:55:41 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/11 01:25:19 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/13 03:55:38 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void   mlxs()
     g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.long_l * TILE, g_dt.nbr_lines * TILE);
 	g_dt.addrmlx = (int*)mlx_get_data_addr(g_dt.imgmlx, &g_dt.bpp, &g_dt.size_l,
                                  &g_dt.endian);
+    printf(" lllll %d\n" , ( (g_dt.size_l * (g_dt.nbr_lines * TILE)) / 4));
+    // render3d();
     draw_map();
     mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0);
     mlx_loop_hook(g_dt.mlx ,hooking, param);
@@ -46,9 +48,9 @@ void        draw_map()
             tilex = x * TILE;
             tiley = y * TILE;
             if (g_dt.mmp[y][x] == '1')
-                rect(tilex, tiley , 0xFFFFFF);
+                rect(tilex * MINIM, tiley  * MINIM, 0xFFFFFF);
             else if (g_dt.mmp[y][x] == '0' || g_dt.mmp[y][x] != ' ')
-                rect(tilex, tiley, 0xA0A0A0);
+                rect(tilex * MINIM, tiley * MINIM, 0xA0A0A0);
             x++;
         }
         y++;
@@ -93,8 +95,8 @@ void        draw_circle()
         while (i < 360)
         {
             angle = i * ( M_PI / 180); 
-            x = (int)(g_dt.pos_x + (r * cos(angle)));
-            y = (int)(g_dt.pos_y + (r * sin(angle)));
+            x = (int)(g_dt.pos_x + (r * cos(angle))) * MINIM;
+            y = (int)(g_dt.pos_y + (r * sin(angle))) * MINIM;
             g_dt.addrmlx[y * (g_dt.long_l * TILE) + x] = 0x0000FF;
             // my_mlx_pixel_put(x , y ,0xFFFFFF);
             i++;
@@ -103,10 +105,10 @@ void        draw_circle()
     }
     // printf("draw circle working\n");
  }
- void    print_line (int x1, int y1)
+ void    print_line(int x1, int y1)
 {
-  int x0 = floor(g_dt.pos_x);
-  int y0 = floor(g_dt.pos_y);
+  int x0 = floor(g_dt.pos_x) * MINIM;
+  int y0 = floor(g_dt.pos_y) * MINIM;
   int dx =  abs (x1 - x0), sx = x0 < x1 ? 1 : -1;
   int dy = -abs (y1 - y0), sy = y0 < y1 ? 1 : -1; 
   int err = dx + dy, e2;

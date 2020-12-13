@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:37:57 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/11 01:31:09 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/13 01:40:53 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,22 @@ int keyreleased(int key, void *param)
 
 void    update()
 {
+    t_dt dt[g_dt.numrays];
+    t_mv mv[g_dt.numrays];
+
     mlx_destroy_image(g_dt.mlx, g_dt.imgmlx);
     mlx_clear_window(g_dt.mlx, g_dt.window);
     g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.long_l * TILE, g_dt.nbr_lines * TILE);
 	g_dt.addrmlx = (int*)mlx_get_data_addr(g_dt.imgmlx, &g_dt.bpp, &g_dt.size_l,
                                  &g_dt.endian);
-    move_playeer();     
-    draw_map();
-    cast_rays();
+                            
+    move_playeer();
+    // render3d(); 
+    // draw_map();
+    cast_rays(dt,mv);
+    render3d(dt,mv);
+     draw_map();
+     cast_rays(dt,mv);
     mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0); 
 }
 
