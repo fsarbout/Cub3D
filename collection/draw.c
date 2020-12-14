@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:55:41 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/13 03:55:38 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/13 12:52:16 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ void    rect(int tilex, int tiley, int color)
     
     x = tilex + TILE;
     y = tiley + TILE;
-    while (tiley < y - 1)
+    while (tiley < y )
     {
         while (tilex < x)
         {
              g_dt.addrmlx[tiley * (g_dt.long_l * TILE) + tilex] = color;
             tilex++;
         }
-        tilex -= TILE - 1;
+        tilex -= TILE ;
         tiley++;
     }
 }

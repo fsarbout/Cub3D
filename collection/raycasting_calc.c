@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 00:34:37 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/13 06:05:09 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/14 06:41:13 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void    cast_rays(t_dt *dt, t_mv *mv)
     g_mv.rayangle = g_dt.plyr_angl - (FOV / 2);
     i = 0;
     while (i < g_dt.numrays)
-    {
+    { 
         fix_cast_angle();
         ray_castintg(dt, mv, i);
-        print_line(g_dt.wallhitx * MINIM, g_dt.wallhity * MINIM);
+        // rayCast(g_mv.rayangle, i, dt,mv);
+        print_line(dt[i].wallhitx * MINIM, dt[i].wallhity * MINIM);
         g_mv.rayangle += FOV / g_dt.numrays;
         i++;
     }
@@ -49,6 +50,7 @@ void    fix_cast_angle()
 
 void    ray_castintg(t_dt *dt , t_mv *mv, int i)
 {
+    
     float xstep;
     float ystep;
     float intrceptx;
@@ -60,7 +62,7 @@ void    ray_castintg(t_dt *dt , t_mv *mv, int i)
     intrcepty = 0;
     horizontal_inter(xstep, ystep, intrceptx, intrcepty);
     vertical_inter(xstep, ystep, intrceptx, intrcepty);
-    mv[i].rayangle = g_mv.rayangle;
+    //mv[i].rayangle = g_mv.rayangle;
     
     
     
@@ -70,29 +72,43 @@ void    ray_castintg(t_dt *dt , t_mv *mv, int i)
     // g_dt.hhitdis = calculate_dist(g_dt.horwllhitx,g_dt.horwllhity);
     // g_dt.vhitdis = calculate_dist(g_dt.verwllhitx,g_dt.verwllhity);
 
-  g_dt.wallhitx = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.horwllhitx : g_dt.verwllhitx;
-    g_dt.wallhity = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.horwllhity : g_dt.verwllhity;
-    g_dt.distance = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.hhitdis : g_dt.vhitdis;
+    // g_dt.wallhitx = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.horwllhitx : g_dt.verwllhitx;
+    // g_dt.wallhity = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.horwllhity : g_dt.verwllhity;
+    // g_dt.distance = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.hhitdis : g_dt.vhitdis;
 
-    // if (g_dt.vhitdis < g_dt.hhitdis)
-    // {   
-    //     dt[i].distance = g_dt.vhitdis;
-    //     dt[i].wallhitx = g_dt.verwllhitx;
-    //     dt[i].wallhity = g_dt.verwllhity;
-    //     dt[i].wllhitcnt = g_dt.ho
-    //     dt[i]
-
-
-
-    // }
+    if (g_dt.vhitdis < g_dt.hhitdis)
+    {   
+        dt[i].distance = g_dt.vhitdis;
+        dt[i].wallhitx = g_dt.verwllhitx;
+        dt[i].wallhity = g_dt.verwllhity;
+        dt[i].wllhitcnt = g_dt.verwllcnt;
+        dt[i].verthit = 1;
+    }
+    else if (g_dt.vhitdis >= g_dt.hhitdis)
+    {
+        dt[i].distance = g_dt.hhitdis;
+        dt[i].wallhitx = g_dt.horwllhitx;
+        dt[i].wallhity = g_dt.horwllhity;
+        dt[i].wllhitcnt = g_dt.horwllcnt;
+        dt[i].verthit = 0;
+    }
+    else 
+    {
+        dt[i].distance = g_dt.hhitdis;
+        dt[i].wallhitx = g_dt.horwllhitx;
+        dt[i].wallhity = g_dt.horwllhity;
+        dt[i].wllhitcnt = (!dt[i - 1].verthit) ? dt[i - 1].horwllcnt : dt[i - 1].verwllcnt;
+        // dt[i - 1].wllhitcnt = (!dt[i].verthit) ? dt[i].horwllcnt : dt[i].verwllcnt;
+        dt[i].verthit = 0;
+    }
+    mv[i].rayangle = g_mv.rayangle;
+    mv[i].raydown = g_mv.raydown;
+    mv[i].rayup = g_mv.rayup;
+    mv[i].rayleft = g_mv.rayleft;
+    mv[i].rayright = g_mv.rayright;
   
-    
-
-
-
-    
-    dt[i].distance = g_dt.distance;
-    dt[i].verthit = g_dt.verthit;
+    // dt[i].distance = g_dt.distance;
+    // dt[i].verthit = g_dt.verthit;
 }
 float    calculate_dist(float x2, float y2)
 {

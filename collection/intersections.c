@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:39:30 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/11 01:25:33 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/14 06:30:38 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,21 @@ void    horizontal_inter(float xstep, float ystep, float intrceptx, float intrce
 }
 
 void    horizontal_loop(float xstep,float ystep,float nxthorzhitx, float nxthorzhity)
-{
+{    
     if (g_mv.rayup)
         nxthorzhity--;
     while (nxthorzhitx >= 0 && nxthorzhitx <= (g_dt.long_l * TILE)  
         && nxthorzhity >= 0 && nxthorzhity <= (g_dt.nbr_lines * TILE))
     {
-        if (hit_wall(nxthorzhitx, nxthorzhity ))
+        g_dt.checkx = nxthorzhitx;
+        g_dt.checky = nxthorzhity;
+        if (hit_wall(g_dt.checkx, g_dt.checky ))
         {
             g_dt.horzhit = 1;
             g_dt.horwllhitx = nxthorzhitx;
             g_dt.horwllhity = nxthorzhity;
+            if (g_dt.checkx > 0 && g_dt.checkx < (g_dt.long_l * TILE) && g_dt.checky > 0 && (g_dt.checky < g_dt.nbr_lines * TILE))
+                g_dt.horwllcnt = g_dt.mmp[(int)floor(g_dt.checky / TILE)][(int)floor(g_dt.checkx / TILE)];
             break;
         }
         else
@@ -86,11 +90,15 @@ void    	vertical_loop(float xstep,float ystep,float nxtverhitx, float nxtverhit
     while (nxtverhitx >= 0 && nxtverhitx <= (g_dt.long_l * TILE)  
         && nxtverhity >= 0 && nxtverhity <= (g_dt.nbr_lines * TILE))
     {
-         if (hit_wall(nxtverhitx, nxtverhity ))
+        g_dt.checkx = nxtverhitx;
+        g_dt.checky = nxtverhity;
+         if (hit_wall(g_dt.checkx, g_dt.checky))
         {
             g_dt.verthit = 1;
             g_dt.verwllhitx = nxtverhitx;
             g_dt.verwllhity = nxtverhity;
+            if (g_dt.checkx > 0 && g_dt.checkx < (g_dt.long_l * TILE) && g_dt.checky > 0 && (g_dt.checky < g_dt.nbr_lines * TILE))
+                g_dt.verwllcnt = g_dt.mmp[(int)floor(g_dt.checky / TILE)][(int)floor(g_dt.checkx / TILE)];
             break;
         }
         else

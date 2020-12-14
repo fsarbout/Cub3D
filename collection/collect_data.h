@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 19:33:08 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/13 05:54:31 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/14 06:19:59 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ typedef struct s_dt
 	float 	horzhit;
 	int		numrays;
 	int 	wllhitcnt;
+	int 	horwllcnt;
+	int		verwllcnt;
+	float  	checkx;
+	float  	checky;
+	
 }			t_dt;
 
 ///////////
@@ -171,5 +176,7 @@ void    	horizontal_loop(float xstep,float ystep,float nxthorzhitx, float nxthor
 void    	vertical_loop(float xstep,float ystep,float nxtverhitx, float nxtverhity);
 // void		render3d();
 void    render3d(t_dt *dt, t_mv *mv);
+void    	rayCast(float rayangle, int stripId,t_dt *dt, t_mv *mv);
+float 	distanceBetweenPoints(float x1, float y1, float x2, float y2);
 
 #endif
