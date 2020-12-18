@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 17:48:53 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/11/29 10:18:02 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/18 02:02:16 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void    print_error(int err_nmbr)
         ft_putstr("Error\n more than one player!");
     else if (err_nmbr == 15)
         ft_putstr("Error\n invalid character in the map!");
-    exit(0);
+    // exit(0);
+    exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 00:34:37 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/14 06:41:13 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/15 17:25:09 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,43 +62,26 @@ void    ray_castintg(t_dt *dt , t_mv *mv, int i)
     intrcepty = 0;
     horizontal_inter(xstep, ystep, intrceptx, intrcepty);
     vertical_inter(xstep, ystep, intrceptx, intrcepty);
-    //mv[i].rayangle = g_mv.rayangle;
-    
-    
     
     g_dt.hhitdis = (g_dt.horzhit) ? calculate_dist(g_dt.horwllhitx,g_dt.horwllhity) : FLT_MAX;
     g_dt.vhitdis = (g_dt.verthit) ? calculate_dist(g_dt.verwllhitx,g_dt.verwllhity) : FLT_MAX;
-
-    // g_dt.hhitdis = calculate_dist(g_dt.horwllhitx,g_dt.horwllhity);
-    // g_dt.vhitdis = calculate_dist(g_dt.verwllhitx,g_dt.verwllhity);
-
-    // g_dt.wallhitx = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.horwllhitx : g_dt.verwllhitx;
-    // g_dt.wallhity = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.horwllhity : g_dt.verwllhity;
-    // g_dt.distance = (g_dt.hhitdis < g_dt.vhitdis) ? g_dt.hhitdis : g_dt.vhitdis;
 
     if (g_dt.vhitdis < g_dt.hhitdis)
     {   
         dt[i].distance = g_dt.vhitdis;
         dt[i].wallhitx = g_dt.verwllhitx;
         dt[i].wallhity = g_dt.verwllhity;
-        dt[i].wllhitcnt = g_dt.verwllcnt;
+        // dt[i].wllhitcnt = g_dt.verwllcnt;
+        ///
         dt[i].verthit = 1;
-    }
-    else if (g_dt.vhitdis >= g_dt.hhitdis)
-    {
-        dt[i].distance = g_dt.hhitdis;
-        dt[i].wallhitx = g_dt.horwllhitx;
-        dt[i].wallhity = g_dt.horwllhity;
-        dt[i].wllhitcnt = g_dt.horwllcnt;
-        dt[i].verthit = 0;
     }
     else 
     {
         dt[i].distance = g_dt.hhitdis;
         dt[i].wallhitx = g_dt.horwllhitx;
         dt[i].wallhity = g_dt.horwllhity;
-        dt[i].wllhitcnt = (!dt[i - 1].verthit) ? dt[i - 1].horwllcnt : dt[i - 1].verwllcnt;
-        // dt[i - 1].wllhitcnt = (!dt[i].verthit) ? dt[i].horwllcnt : dt[i].verwllcnt;
+        ///
+        // dt[i].wllhitcnt = g_dt.horwllcnt;
         dt[i].verthit = 0;
     }
     mv[i].rayangle = g_mv.rayangle;
@@ -106,9 +89,6 @@ void    ray_castintg(t_dt *dt , t_mv *mv, int i)
     mv[i].rayup = g_mv.rayup;
     mv[i].rayleft = g_mv.rayleft;
     mv[i].rayright = g_mv.rayright;
-  
-    // dt[i].distance = g_dt.distance;
-    // dt[i].verthit = g_dt.verthit;
 }
 float    calculate_dist(float x2, float y2)
 {

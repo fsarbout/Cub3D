@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:37:57 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/13 12:44:54 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/16 23:01:49 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int    hooking(void *param)
 
 int    keypressed(int key, void *param)
 {
-    printf("%d\n", key);
+    // printf("%d\n", key);
     g_dt.side = 0;
     if (key == DOWN)
         g_mv.walkdir = -1;

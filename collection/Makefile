@@ -6,7 +6,7 @@
 #    By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 18:02:45 by fsarbout          #+#    #+#              #
-#    Updated: 2020/11/30 18:58:04 by fsarbout         ###   ########.fr        #
+#    Updated: 2020/12/18 02:50:29 by fsarbout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ SRC =   ./*.c\
 all : $(NAME)
 
 $(NAME):
-	@$(CC) $(CFLAGS) $(SRC) && ./cub3D map.cub
+	@$(CC) $(CFLAGS) $(SRC) -O3 && ./cub3D map.cub
+	
+#don't forgot the optimazation flag
 
 clean:
 	@rm -rf $(NAME)

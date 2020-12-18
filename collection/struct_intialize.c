@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:43:12 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/13 09:49:02 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/17 00:15:40 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void    struct_intialize()
 	g_dt.img_ea = NULL;
 	g_dt.img_we = NULL;
     g_dt.img_so = NULL;
+    // g_dt.img = (type) {.x = dfvdfg, .x}
     g_dt.mmp = NULL;
     g_dt.size_l = 0;
     g_dt.mlx = mlx_init();
@@ -52,8 +53,8 @@ void    struct_intialize()
     /////////////////////////////////////////////
     g_mv.turndir = 0;
     g_mv.walkdir = 0;
-    g_mv.mvspd  = 2;
-    g_mv.rtnspd = 2 * (M_PI / 180 );
+    g_mv.mvspd  = 6;
+    g_mv.rtnspd = 2 * (M_PI / 180);
     g_dt.pos_x = 0;
     g_dt.pos_y = 0;
     g_dt.pos_xsd = 0;
@@ -78,7 +79,9 @@ void    struct_intialize()
     g_dt.horzhit = 0;
     g_dt.verthit = 0;
     g_dt.numrays = 0;
-    g_dt.wllhitcnt = 0;
+    // g_dt.wllhitcnt = 0;
     g_dt.checkx = 0;
     g_dt.checky = 0;
+    g_txt.txt_offsetx = 0;
+    g_txt.txt_offsetx = 0;
 }

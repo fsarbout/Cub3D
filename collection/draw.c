@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:55:41 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/13 12:52:16 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/16 23:04:03 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void   mlxs()
     g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.long_l * TILE, g_dt.nbr_lines * TILE);
 	g_dt.addrmlx = (int*)mlx_get_data_addr(g_dt.imgmlx, &g_dt.bpp, &g_dt.size_l,
                                  &g_dt.endian);
-    printf(" lllll %d\n" , ( (g_dt.size_l * (g_dt.nbr_lines * TILE)) / 4));
+    // printf(" lllll %d\n" , ( (g_dt.size_l * (g_dt.nbr_lines * TILE)) / 4));
     // render3d();
     draw_map();
     mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0);
     mlx_loop_hook(g_dt.mlx ,hooking, param);
     mlx_loop(g_dt.mlx);
-    printf("mlxs working\n");
+    // printf("mlxs working\n");
 }
 
 void        draw_map()
@@ -66,14 +66,14 @@ void    rect(int tilex, int tiley, int color)
     
     x = tilex + TILE;
     y = tiley + TILE;
-    while (tiley < y )
+    while (tiley < y -1)
     {
         while (tilex < x)
         {
              g_dt.addrmlx[tiley * (g_dt.long_l * TILE) + tilex] = color;
             tilex++;
         }
-        tilex -= TILE ;
+        tilex -= TILE -1;
         tiley++;
     }
 }

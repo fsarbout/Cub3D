@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 12:12:38 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/11 01:33:24 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/17 23:34:57 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    treat_north(char **element_data)
     if(g_dt.n == 1)
         print_error(11);
     g_dt.n = 1;
-   if (!(g_dt.img_no = mlx_xpm_file_to_image(g_dt.mlx, element_data[1]
+   if (!(g_txt.no_txt = (int*)mlx_xpm_file_to_image(g_dt.mlx, element_data[1]
     ,&g_dt.width, &g_dt.height)))
     {
         printf("|*%s*|" , element_data[1]);
@@ -29,6 +29,7 @@ void    treat_north(char **element_data)
         print_error(3);
     }
 }
+
 void    treat_south(char **element_data)
 {
     if ((ft_strncmp(element_data[0], "SO" ,3)))
@@ -38,7 +39,7 @@ void    treat_south(char **element_data)
     if(g_dt.so == 1)
         print_error(11);
     g_dt.so = 1;
-    if (!(g_dt.img_so = mlx_xpm_file_to_image(g_dt.mlx,
+    if (!(g_txt.so_txt = (int*)mlx_xpm_file_to_image(g_dt.mlx,
               element_data[1], &g_dt.width, &g_dt.height)))
     {
         printf("SOUTH||%s||\n" , element_data[1]);
@@ -55,7 +56,7 @@ void    treat_east(char **element_data)
     if(g_dt.e == 1)
         print_error(11);
     g_dt.e = 1;
-     if (!(g_dt.img_ea = mlx_xpm_file_to_image(g_dt.mlx, element_data[1],
+     if (!(g_txt.ea_txt = (int*)mlx_xpm_file_to_image(g_dt.mlx, element_data[1],
               &g_dt.width, &g_dt.height)))
           print_error(3);
 }
@@ -68,7 +69,7 @@ void    treat_west(char **element_data)
     if(g_dt.w == 1)
         print_error(11);
     g_dt.w = 1;
-    if (!(g_dt.img_ea = mlx_xpm_file_to_image(g_dt.mlx, element_data[1],
+    if (!(g_txt.we_txt = (int*)mlx_xpm_file_to_image(g_dt.mlx, element_data[1],
              &g_dt.width, &g_dt.height)))
-         print_error(3);  
+         print_error(3);
 }

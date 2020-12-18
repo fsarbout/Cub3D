@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 19:33:08 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/14 06:19:59 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/18 03:36:47 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define T_LEFT 123
 # define FOV 60 * (M_PI / 180)
 # define WALL_S_W 0.5
-# define MINIM 0.2
+# define MINIM 0.1
 
 typedef struct s_dt
 {
@@ -100,12 +100,8 @@ typedef struct s_dt
 	float 	verthit;
 	float 	horzhit;
 	int		numrays;
-	int 	wllhitcnt;
-	int 	horwllcnt;
-	int		verwllcnt;
 	float  	checkx;
 	float  	checky;
-	
 }			t_dt;
 
 ///////////
@@ -125,8 +121,30 @@ typedef struct  s_mv
 	float raydist;
 	float rayangle;
 }			t_mv;
+
+typedef struct s_txt
+{
+	
+	int 	*addr_txt[4];
+	void	*so_txt;
+	void	*no_txt;
+	void	*ea_txt;
+	void	*we_txt;
+	int txt_offsetx;
+    int txt_offsety;
+}	t_txt;
+
+typedef struct s_sprite
+{
+	int x;
+	int y;
+	void	*img_sprite;
+} t_sprite[1000];
+
+t_sprite sprite[1000];
+t_txt 	g_txt;
 t_mv	g_mv;
-t_dt		g_dt;
+t_dt	g_dt;
 
 
 void		print_error(int err_nmbr);
@@ -159,7 +177,6 @@ void    	check_sprite(int i, int j);
 void   		parse_map(char **map, int i, int j);
 void    	fill_maplines(char **map);
 void    	if_dif_one(char **map, int i, int j);
-void		dda();
 int 		keyreleased(int key, void *param);
 int         hit_wall(float x, float y);
 void    	cast_rays(t_dt *dt, t_mv *mv);
@@ -174,9 +191,6 @@ void    	horizontal_inter(float xstep, float ystep, float intrceptx, float intrc
 void    	vertical_inter(float xstep, float ystep, float intrceptx, float intrcepty);
 void    	horizontal_loop(float xstep,float ystep,float nxthorzhitx, float nxthorzhity);
 void    	vertical_loop(float xstep,float ystep,float nxtverhitx, float nxtverhity);
-// void		render3d();
-void    render3d(t_dt *dt, t_mv *mv);
-void    	rayCast(float rayangle, int stripId,t_dt *dt, t_mv *mv);
-float 	distanceBetweenPoints(float x1, float y1, float x2, float y2);
+void    	render3d(t_dt *dt, t_mv *mv);
 
 #endif
