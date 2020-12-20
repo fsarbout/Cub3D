@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collect_data.h                                     :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 19:33:08 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/18 03:36:47 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 02:13:10 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLLECT_DATA_H
-# define COLLECT_DATA_H
+#ifndef cub3d_H
+# define cub3d_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -41,6 +41,21 @@
 
 typedef struct s_dt
 {
+
+
+	/////render3d
+	float   perpdist;
+    float   distpplane;
+    float   prjctwallheight;
+    int     wallstripheight;
+    int     walltop;
+    int     wallbttm;
+    int     dist_from_top;
+		
+	//////
+	int		color;
+	int		size_line;
+	
 	int		r;
 	int		rsltn_w;
 	int 	rsltn_h;
@@ -67,19 +82,12 @@ typedef struct s_dt
 	char	*so_path;
 	//char	*s_path;
 	void	*mlx;
-	void	*img_so;
-	void	*img_no;
-	void	*img_ea;
-	void	*img_we;
 	int		plyr;
 	//int		img_s;
 	float	plyr_angl;
 	//////////
 	float pos_x;
 	float pos_y;
-	float pos_xsd;
-	float pos_ysd;
-	int 	side;
 	int 	nbr_lines;
 	int 	endian;
 	int		long_l;
@@ -130,37 +138,35 @@ typedef struct s_txt
 	void	*no_txt;
 	void	*ea_txt;
 	void	*we_txt;
-	int txt_offsetx;
-    int txt_offsety;
+	int 	txt_offsetx;
+    int 	txt_offsety;
 }	t_txt;
 
-typedef struct s_sprite
+typedef struct s_list
 {
-	int x;
-	int y;
+	int 	x;
+	int 	y;
 	void	*img_sprite;
-} t_sprite[1000];
+	struct s_list *next;
+} t_list;
 
-t_sprite sprite[1000];
+t_list g_sprite;
 t_txt 	g_txt;
 t_mv	g_mv;
 t_dt	g_dt;
 
 
-void		print_error(int err_nmbr);
+// void		print_error(int err_nmbr);
 int			str_of_num(char *str);
 void		struct_intialize();
 void		collect_data(char *line, char **av);
-void 		treat_west(char **element);
-void 		treat_east(char **element);
-void 		treat_north(char **element);
-void 		treat_south(char **element);
 void 		treat_rsltn(char **element);
 void 		treat_flr(char **element);
 void 		treat_cllng(char **element);
 int			lenght(char **str);
 void    	check_map(char *mp);
-void		treat_sprite();
+// void		treat_sprite();
+void    	treat_sprite(char **element_data);
 void    	draw_map();
 void    	rect(int tilex, int tiley,int color);
 void		draw_circle();
@@ -182,7 +188,7 @@ int         hit_wall(float x, float y);
 void    	cast_rays(t_dt *dt, t_mv *mv);
 float    	normalize_angle();
 void 		print_line (int x1, int y1);
-void    	ray_castintg(t_dt *dt , t_mv *mv, int i);
+void    	ray_casting(t_dt *dt , t_mv *mv, int i);
 void    	fix_cast_angle();
 void    	move_playeer();
 void    	draw_ray(float x1 , float y1);
@@ -192,5 +198,9 @@ void    	vertical_inter(float xstep, float ystep, float intrceptx, float intrcep
 void    	horizontal_loop(float xstep,float ystep,float nxthorzhitx, float nxthorzhity);
 void    	vertical_loop(float xstep,float ystep,float nxtverhitx, float nxtverhity);
 void    	render3d(t_dt *dt, t_mv *mv);
+void    	treat_txt(char **element_data, void **img, int *flag);
+int 		check_txt_name(char **element, char *txt, int flag);
+void		print_error(char *string);
+
 
 #endif

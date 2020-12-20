@@ -6,25 +6,24 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 00:34:37 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/15 17:25:09 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 00:16:26 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "collect_data.h"
+#include "cub3d.h"
 #include <float.h>
 
 void    cast_rays(t_dt *dt, t_mv *mv)
 {
     // int numrays;
     int i; 
-    // g_dt.numrays = g_dt.rsltn_w / WALL_S_W;
+    // g_dt.numrays = g_dt.rsltn_w / WALL_S_W
     g_mv.rayangle = g_dt.plyr_angl - (FOV / 2);
     i = 0;
     while (i < g_dt.numrays)
     { 
         fix_cast_angle();
-        ray_castintg(dt, mv, i);
-        // rayCast(g_mv.rayangle, i, dt,mv);
+        ray_casting(dt, mv, i);
         print_line(dt[i].wallhitx * MINIM, dt[i].wallhity * MINIM);
         g_mv.rayangle += FOV / g_dt.numrays;
         i++;
@@ -48,7 +47,7 @@ void    fix_cast_angle()
     g_mv.rayleft = !g_mv.rayright;
 }
 
-void    ray_castintg(t_dt *dt , t_mv *mv, int i)
+void    ray_casting(t_dt *dt , t_mv *mv, int i)
 {
     
     float xstep;

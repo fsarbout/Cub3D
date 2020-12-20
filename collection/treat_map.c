@@ -6,11 +6,11 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:46:23 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/16 23:04:37 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 01:37:21 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "collect_data.h"
+#include "cub3d.h"
 
 void    check_map(char *mp)
 {
@@ -31,17 +31,16 @@ void    check_map(char *mp)
     // j = 0; 
     parse_map(map, i, j);
     if (g_dt.plyr   == 0)
-        print_error(4);
-    printf("working check map\n");
+        print_error("   missing player!\n");
 } 
 void    player(char **map, int i, int j)
 {
     if ( g_dt.mmp[i][j + 1] == 32 ||  g_dt.mmp[i][j - 1] == 32 
         ||  g_dt.mmp[i - 1][j] == 32
             ||  g_dt.mmp[i + 1][j] == 32)
-        print_error(2);
+        print_error("   map invalid , space next to the player!\n");
     if (g_dt.plyr == 1)
-        print_error(14);
+        print_error("   more than player!\n");
     g_dt.plyr = 1;
     if (map[i][j] == 'N')
         g_dt.plyr_angl = - M_PI /2;
@@ -53,8 +52,6 @@ void    player(char **map, int i, int j)
         g_dt.plyr_angl = M_PI / 2;
     g_dt.pos_x = j * TILE + (TILE / 2);
     g_dt.pos_y = i * TILE + (TILE / 2);
-    
-    printf("there is a player\n");
 }
 void    parse_map(char **map, int i, int j)
 {
@@ -75,7 +72,7 @@ void    check_sprite(int i, int j)
     if ( g_dt.mmp[i][j + 1] == 32 ||  g_dt.mmp[i][j - 1] == 32 
         ||  g_dt.mmp[i - 1][j] == 32
                     ||  g_dt.mmp[i + 1][j] == 32)
-                        print_error(2); 
+                        print_error("map invalid ,sprite next to space!\n"); 
 }
 void    fill_maplines(char **map)
 {   
@@ -95,7 +92,7 @@ void    fill_maplines(char **map)
     g_dt.nbr_lines = lenght(map);
     g_dt.mmp = (char**)malloc(g_dt.nbr_lines * sizeof(g_dt.mmp));
     if (!g_dt.mmp)
-        printf("there is a problem in memory allocation");
+        print_error("   there is a problem in memory allocation!\n");
     i = 0;
     while (i < g_dt.nbr_lines)
     {
@@ -107,12 +104,12 @@ void    fill_maplines(char **map)
 void    if_dif_one(char **map, int i, int j)
 {
     if (i - 1 < 0 || j - 1 < 0 || i + 1 >= g_dt.nbr_lines || j + 1 >= g_dt.long_l)
-        print_error(12);
+        print_error("   map not surrounded by ones!\n");
     else if ( g_dt.mmp[i][j] == '0')
     {   
     if (g_dt.mmp[i][j + 1] == 32 ||  g_dt.mmp[i][j - 1] == 32 ||  g_dt.mmp[i - 1][j] == 32
         ||  g_dt.mmp[i + 1][j] == 32)
-            print_error(2);
+            print_error("   map invlaid, (spaces problem)!\n");
     }
     else if (map[i][j] == 'N' || map[i][j] == 'W' || map[i][j] == 'E' 
         || map[i][j] == 'S')
@@ -120,5 +117,5 @@ void    if_dif_one(char **map, int i, int j)
     else if (g_dt.mmp[i][j] == '2')
         check_sprite(i, j);
     else 
-        print_error(15);   
+        print_error("   invalid character in the map!\n");   
 }

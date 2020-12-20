@@ -6,19 +6,18 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:37:57 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/16 23:01:49 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 01:46:50 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "collect_data.h"
+#include "cub3d.h"
 
 int exiit(int key, void *param)
 {
-    printf("exit working1\n");
     param = NULL;
-    printf("%d\n", key);
+    key = 53;
     mlx_destroy_window(g_dt.mlx, g_dt.window);
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 int    hooking(void *param)
@@ -33,8 +32,6 @@ int    hooking(void *param)
 
 int    keypressed(int key, void *param)
 {
-    // printf("%d\n", key);
-    g_dt.side = 0;
     if (key == DOWN)
         g_mv.walkdir = -1;
     if (key == UP)
@@ -85,8 +82,6 @@ void    update()
                                  &g_dt.endian);
                             
     move_playeer();
-    // render3d(); 
-    // draw_map();
     cast_rays(dt,mv);
     render3d(dt,mv);
      draw_map();
@@ -125,5 +120,8 @@ int     hit_wall(float x, float y)
         return (1);
     mapx = floor(x / TILE);
     mapy = floor(y / TILE);
-    return g_dt.mmp[mapy][mapx] == '1' ? 1 : 0;
+    if (g_dt.mmp[mapy][mapx] == '1' || g_dt.mmp[mapy][mapx] == '2')
+        return (1);
+    else 
+        return (0);
 }

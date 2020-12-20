@@ -6,11 +6,11 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:39:30 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/18 01:57:29 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 00:09:48 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "collect_data.h"
+#include "cub3d.h"
 
 void    horizontal_inter(float xstep, float ystep, float intrceptx, float intrcepty)
 {

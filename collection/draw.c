@@ -6,11 +6,11 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:55:41 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/16 23:04:03 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 01:04:37 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "collect_data.h"
+#include "cub3d.h"
 
 void   mlxs()
 {
@@ -21,13 +21,10 @@ void   mlxs()
     g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.long_l * TILE, g_dt.nbr_lines * TILE);
 	g_dt.addrmlx = (int*)mlx_get_data_addr(g_dt.imgmlx, &g_dt.bpp, &g_dt.size_l,
                                  &g_dt.endian);
-    // printf(" lllll %d\n" , ( (g_dt.size_l * (g_dt.nbr_lines * TILE)) / 4));
-    // render3d();
     draw_map();
     mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0);
     mlx_loop_hook(g_dt.mlx ,hooking, param);
     mlx_loop(g_dt.mlx);
-    // printf("mlxs working\n");
 }
 
 void        draw_map()
@@ -98,13 +95,12 @@ void        draw_circle()
             x = (int)(g_dt.pos_x + (r * cos(angle))) * MINIM;
             y = (int)(g_dt.pos_y + (r * sin(angle))) * MINIM;
             g_dt.addrmlx[y * (g_dt.long_l * TILE) + x] = 0x0000FF;
-            // my_mlx_pixel_put(x , y ,0xFFFFFF);
             i++;
         }
     r++;
     }
-    // printf("draw circle working\n");
  }
+ 
  void    print_line(int x1, int y1)
 {
   int x0 = floor(g_dt.pos_x) * MINIM;

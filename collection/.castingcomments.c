@@ -6,12 +6,12 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:22:01 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/11 06:12:38 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 00:09:46 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "collect_data.h"
+#include "cub3d.h"
 #include <float.h>
 
 void    cast_rays()

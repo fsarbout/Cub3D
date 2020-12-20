@@ -6,11 +6,11 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 11:41:17 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/11/28 11:41:22 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 00:09:59 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "collect_data.h"
+#include "cub3d.h"
 
 int     lenght(char **str)
 {

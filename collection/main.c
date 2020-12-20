@@ -6,16 +6,15 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 18:20:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/15 17:13:55 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 01:48:14 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "collect_data.h"
+#include "cub3d.h"
 #include <float.h>
 
 int main(int ac, char **av)
 {
-    printf("number of arguments = %d\n", ac);
     char *line;
     void    *param;
 
@@ -28,10 +27,9 @@ int main(int ac, char **av)
     }
     else
         collect_data(line, av);
-    // g_dt.numrays =  g_dt.rsltn_w / WALL_S_W;
     g_dt.numrays = g_dt.long_l * TILE ;
     mlxs();
-    perror("Error: ");
+    // perror("Error: ");
     free(g_dt.mmp);
     return (0);
 }
