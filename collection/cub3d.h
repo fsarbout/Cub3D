@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 19:33:08 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/20 02:13:10 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 06:25:44 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,6 @@ void    	render3d(t_dt *dt, t_mv *mv);
 void    	treat_txt(char **element_data, void **img, int *flag);
 int 		check_txt_name(char **element, char *txt, int flag);
 void		print_error(char *string);
-
+void    calc_render3d(t_dt *dt, t_mv *mv, int *i, int *j);
 
 #endif

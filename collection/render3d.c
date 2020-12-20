@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 06:26:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/20 02:17:57 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/20 06:28:37 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,11 @@ void    render3d(t_dt *dt, t_mv *mv)
     g_txt.addr_txt[2] = (int*)mlx_get_data_addr(g_txt.so_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
     g_txt.addr_txt[3] = (int*)mlx_get_data_addr(g_txt.we_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
     g_txt.addr_txt[1] = (int*)mlx_get_data_addr(g_txt.ea_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
-
+    
     g_dt.distpplane = ((g_dt.long_l * TILE) / 2) / tan(FOV / 2);
     while (i < g_dt.numrays)
     {
-        g_txt.txt_offsetx = dt[i].verthit ? (int)dt[i].wallhity % 64 
-                : (int)dt[i].wallhitx % 64;
-        g_dt.perpdist = dt[i].distance * cos(mv[i].rayangle - g_dt.plyr_angl);
-        g_dt.prjctwallheight = (TILE/ g_dt.perpdist) * g_dt.distpplane;
-        g_dt.wallstripheight = (int)g_dt.prjctwallheight;
-        g_dt.walltop = ((g_dt.nbr_lines * TILE) / 2) - (g_dt.wallstripheight / 2);
-        g_dt.walltop = g_dt.walltop < 0 ? 0 : g_dt.walltop;
-        g_dt.wallbttm = ((g_dt.nbr_lines * TILE) / 2) + (g_dt.wallstripheight /2);
-        g_dt.wallbttm = g_dt.wallbttm > (g_dt.nbr_lines * TILE) ? (g_dt.nbr_lines * TILE) : g_dt.wallbttm;
-        if (mv[i].rayup && !dt[i].verthit)
-                j = 1;
-        if (!mv[i].rayup && !dt[i].verthit)
-                j = 0;
-        if (mv[i].rayright && dt[i].verthit)
-                j = 3;
-        if (!mv[i].rayright && dt[i].verthit)
-                j = 2;
+        calc_render3d(dt, mv, &i, &j);
         y = 0;
         while (y < g_dt.walltop)/////ceilling
         {
@@ -86,4 +70,25 @@ void    render3d(t_dt *dt, t_mv *mv)
         }
         i++;
     }
+}
+
+void    calc_render3d(t_dt *dt, t_mv *mv, int *i, int *j)
+{    
+    g_txt.txt_offsetx = dt[*i].verthit ? (int)dt[*i].wallhity % 64 
+        : (int)dt[*i].wallhitx % 64;
+    g_dt.perpdist = dt[*i].distance * cos(mv[*i].rayangle - g_dt.plyr_angl);
+    g_dt.prjctwallheight = (TILE/ g_dt.perpdist) * g_dt.distpplane;
+    g_dt.wallstripheight = (int)g_dt.prjctwallheight;
+    g_dt.walltop = ((g_dt.nbr_lines * TILE) / 2) - (g_dt.wallstripheight / 2);
+    g_dt.walltop = g_dt.walltop < 0 ? 0 : g_dt.walltop;
+    g_dt.wallbttm = ((g_dt.nbr_lines * TILE) / 2) + (g_dt.wallstripheight /2);
+    g_dt.wallbttm = g_dt.wallbttm > (g_dt.nbr_lines * TILE) ? (g_dt.nbr_lines * TILE) : g_dt.wallbttm;
+    if (mv[*i].rayup && !dt[*i].verthit)
+        *j = 1;
+    if (!mv[*i].rayup && !dt[*i].verthit)
+        *j = 0;
+    if (mv[*i].rayright && dt[*i].verthit)
+        *j = 3;
+    if (!mv[*i].rayright && dt[*i].verthit)
+        *j = 2;
 }
