@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:55:41 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/20 01:04:37 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/21 02:15:10 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ void        draw_map()
                 rect(tilex * MINIM, tiley  * MINIM, 0xFFFFFF);
             else if (g_dt.mmp[y][x] == '0' || g_dt.mmp[y][x] != ' ')
                 rect(tilex * MINIM, tiley * MINIM, 0xA0A0A0);
+            // if (g_dt.mmp[y][x] == '2')
+            //      draw_circle_s(x , y);
             x++;
         }
         y++;
     }
-    draw_circle();
+    draw_circle(0x0000FF);
 }
 
 void    rect(int tilex, int tiley, int color)
@@ -74,7 +76,37 @@ void    rect(int tilex, int tiley, int color)
         tiley++;
     }
 }
-void        draw_circle()
+
+// void        draw_circle_s(int xstart, int ystart)
+// {
+//     int     r;
+//     float   angle;
+//     int     i;
+//     int     x;
+//     int     y;
+ 
+//     r = 1;
+//     i = 0;
+//     x = 0;
+//     y = 0;
+//     while(r < 5)
+//     {
+//         i = 0;
+//         while (i < 360)
+//         {
+//             angle = i * ( M_PI / 180); 
+//             x = (int)(xstart + (r * cos(angle))) * MINIM;
+//             y = (int)(ystart + (r * sin(angle))) * MINIM;
+//             g_dt.addrmlx[y * (g_dt.long_l * TILE) + x] = 0x33FF33;
+//             i++;
+//         }
+//     r++;
+//     }
+//  }
+
+
+
+void        draw_circle(int color)
 {
     int     r;
     float   angle;
@@ -94,7 +126,7 @@ void        draw_circle()
             angle = i * ( M_PI / 180); 
             x = (int)(g_dt.pos_x + (r * cos(angle))) * MINIM;
             y = (int)(g_dt.pos_y + (r * sin(angle))) * MINIM;
-            g_dt.addrmlx[y * (g_dt.long_l * TILE) + x] = 0x0000FF;
+            g_dt.addrmlx[y * (g_dt.long_l * TILE) + x] = color;
             i++;
         }
     r++;

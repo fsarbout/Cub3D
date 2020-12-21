@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:43:12 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/20 04:14:22 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/21 05:29:39 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,6 @@ void    struct_intialize()
     g_dt.walltop = 0;
     g_dt.wallbttm = 0;
     g_dt.dist_from_top = 0;
+    g_sprite.size_l_sp = 0;
+    g_txt.sp_txt = NULL;
 }

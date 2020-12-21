@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 19:33:08 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/20 06:25:44 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/21 05:30:16 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_dt
 	//////
 	int		color;
 	int		size_line;
-	
+	int		sp;
 	int		r;
 	int		rsltn_w;
 	int 	rsltn_h;
@@ -133,21 +133,25 @@ typedef struct  s_mv
 typedef struct s_txt
 {
 	
-	int 	*addr_txt[4];
+	int 	*addr_txt[5];
 	void	*so_txt;
 	void	*no_txt;
 	void	*ea_txt;
 	void	*we_txt;
 	int 	txt_offsetx;
     int 	txt_offsety;
+	void	*sp_txt;
 }	t_txt;
 
 typedef struct s_list
 {
 	int 	x;
 	int 	y;
+	int 	*addr_sprite;
 	void	*img_sprite;
+	int 	size_l_sp;
 	struct s_list *next;
+	
 } t_list;
 
 t_list g_sprite;
@@ -165,11 +169,11 @@ void 		treat_flr(char **element);
 void 		treat_cllng(char **element);
 int			lenght(char **str);
 void    	check_map(char *mp);
-// void		treat_sprite();
+void		treat_sprite();
 void    	treat_sprite(char **element_data);
 void    	draw_map();
 void    	rect(int tilex, int tiley,int color);
-void		draw_circle();
+void		draw_circle(int color);
 int    		keypressed(int key, void *param);
 int    		hooking(void *param);
 int 		exiit(int key, void *param);
@@ -201,6 +205,7 @@ void    	render3d(t_dt *dt, t_mv *mv);
 void    	treat_txt(char **element_data, void **img, int *flag);
 int 		check_txt_name(char **element, char *txt, int flag);
 void		print_error(char *string);
-void    calc_render3d(t_dt *dt, t_mv *mv, int *i, int *j);
+void    	calc_render3d(t_dt *dt, t_mv *mv, int *i, int *j);
+void        draw_circle_s(int xstart, int ystart);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 00:14:05 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/20 01:38:34 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/21 03:04:56 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void    che_ck_map(int i, int fd, char *line, char *map)
         if (*line == '\0')
         {
             if (j == 1)
-                print_error("   map invalid, map separated by  new line(s)!\n");
+                print_error("   map separated or ended by  new line(s)!\n");
             continue;
         }
         map = ft_strjoin(map , "\n");

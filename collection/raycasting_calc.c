@@ -6,12 +6,30 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 00:34:37 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/20 00:16:26 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/21 06:11:14 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <float.h>
+
+int     hit_wall_h(t_dt dt, t_mv mv)
+{
+    int mapx;
+    int mapy;
+    
+    if(mv.rayup && !dt.verthit)
+         dt.wallhity -= 1;
+    if (!mv.rayright && dt.verthit)
+        dt.wallhitx -= 1;
+    //printf("%f\n", mv.rayangle);
+    mapx = floor(dt.wallhitx / TILE);
+    mapy = floor(dt.wallhity / TILE);
+    if (g_dt.mmp[mapy][mapx] == '2')
+        return (1);
+    else 
+        return (0);
+}
 
 void    cast_rays(t_dt *dt, t_mv *mv)
 {
@@ -24,7 +42,10 @@ void    cast_rays(t_dt *dt, t_mv *mv)
     { 
         fix_cast_angle();
         ray_casting(dt, mv, i);
+        dt[i].sp = 0;
         print_line(dt[i].wallhitx * MINIM, dt[i].wallhity * MINIM);
+        if (hit_wall_h(dt[i], mv[i]))
+            dt[i].sp = 1;
         g_mv.rayangle += FOV / g_dt.numrays;
         i++;
     }
