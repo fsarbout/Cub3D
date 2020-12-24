@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 19:33:08 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/21 05:30:16 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/24 19:27:23 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 # define MAX_WIDTH	2560
 # define MAX_HEIGHT	1440
-# define W_WIDTH 1000
-# define W_HEIGHT 1000
+# define W_WIDTH 500
+# define W_HEIGHT 500
 # define TILE 64
 # define STEP 20
 # define UP 13
@@ -38,11 +38,10 @@
 # define FOV 60 * (M_PI / 180)
 # define WALL_S_W 0.5
 # define MINIM 0.1
+# define RAD (M_PI / 180)
 
 typedef struct s_dt
 {
-
-
 	/////render3d
 	float   perpdist;
     float   distpplane;
@@ -110,6 +109,8 @@ typedef struct s_dt
 	int		numrays;
 	float  	checkx;
 	float  	checky;
+	float 	interx;
+	float 	intery;
 }			t_dt;
 
 ///////////
@@ -130,31 +131,52 @@ typedef struct  s_mv
 	float rayangle;
 }			t_mv;
 
-typedef struct s_txt
+typedef struct	s_txt
 {
-	
 	int 	*addr_txt[5];
+	int 	*addr_sprite;
 	void	*so_txt;
 	void	*no_txt;
 	void	*ea_txt;
 	void	*we_txt;
 	int 	txt_offsetx;
     int 	txt_offsety;
-	void	*sp_txt;
-}	t_txt;
-
-typedef struct s_list
-{
-	int 	x;
-	int 	y;
-	int 	*addr_sprite;
 	void	*img_sprite;
 	int 	size_l_sp;
-	struct s_list *next;
-	
-} t_list;
+	void	*sp_txt;
+}				t_txt;
+//////////////////////////////////
+typedef struct s_sp
+{
+	int x;
+	int y;
+	int center_x;
+	int center_y;
+	float sp_hordist;
+	float sp_verdist;
+	float dist_plyr_sp;
+	float sp_horhitx;
+	float sp_horhity;
+	float sp_verhitx;
+	float sp_verhity;
+	float	hhitdis;
+	float	vhitdis;
+	int horzhit;	
+	int verthit;
+}	t_sp;
 
-t_list g_sprite;
+typedef struct	s_list
+{
+	t_sp sp;
+	struct s_list *next;
+}				t_list;
+
+t_list 	*g_lst;
+
+
+t_sp g_sp;
+
+//////////////////////////////////
 t_txt 	g_txt;
 t_mv	g_mv;
 t_dt	g_dt;
@@ -197,15 +219,18 @@ void    	fix_cast_angle();
 void    	move_playeer();
 void    	draw_ray(float x1 , float y1);
 float    	calculate_dist(float x2, float y2);
-void    	horizontal_inter(float xstep, float ystep, float intrceptx, float intrcepty);
-void    	vertical_inter(float xstep, float ystep, float intrceptx, float intrcepty);
+void    	vertical_inter(float xstep, float ystep);
 void    	horizontal_loop(float xstep,float ystep,float nxthorzhitx, float nxthorzhity);
 void    	vertical_loop(float xstep,float ystep,float nxtverhitx, float nxtverhity);
 void    	render3d(t_dt *dt, t_mv *mv);
+void    	horizontal_inter(float xstep, float ystep);
 void    	treat_txt(char **element_data, void **img, int *flag);
 int 		check_txt_name(char **element, char *txt, int flag);
 void		print_error(char *string);
 void    	calc_render3d(t_dt *dt, t_mv *mv, int *i, int *j);
 void        draw_circle_s(int xstart, int ystart);
+void    	get_center_coor();
+// void		append(t_list **lst, t_sprite sp);
+// void		clear_list(t_list **lst);
 
 #endif

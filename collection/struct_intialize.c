@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:43:12 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/21 05:29:39 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/24 17:50:02 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void    struct_intialize()
     g_mv.turndir = 0;
     g_mv.walkdir = 0;
     g_mv.mvspd  = 6;
-    g_mv.rtnspd = 2 * (M_PI / 180);
+    g_mv.rtnspd = 2 * RAD;
     g_dt.pos_x = 0;
     g_dt.pos_y = 0;
     g_mv.newxplyr = 0;
@@ -86,6 +86,9 @@ void    struct_intialize()
     g_dt.walltop = 0;
     g_dt.wallbttm = 0;
     g_dt.dist_from_top = 0;
-    g_sprite.size_l_sp = 0;
+    g_txt.size_l_sp = 0;
     g_txt.sp_txt = NULL;
+    g_lst = NULL;
+    g_dt.interx = 0;
+    g_dt.intery = 0;
 }

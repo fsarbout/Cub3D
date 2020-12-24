@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:37:57 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/21 05:25:24 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/24 18:23:45 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void    update()
     move_playeer();
     cast_rays(dt,mv);
     render3d(dt,mv);
+    // clear_list(&g_lst);
      draw_map();
      cast_rays(dt,mv);
     mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0); 
@@ -102,10 +103,10 @@ void    move_playeer()
     g_mv.newyplyr = g_dt.pos_y + sin(g_dt.plyr_angl) * movestep;
     if (movesteps != 0)
     {
-        g_mv.newxplyr = g_dt.pos_x + (cos(g_dt.plyr_angl  + (90 * (M_PI / 180))) * movesteps);
-        g_mv.newyplyr = g_dt.pos_y + (sin(g_dt.plyr_angl  + (90 * (M_PI / 180))) * movesteps);
+        g_mv.newxplyr = g_dt.pos_x + (cos(g_dt.plyr_angl  + (90 * RAD)) * movesteps);
+        g_mv.newyplyr = g_dt.pos_y + (sin(g_dt.plyr_angl  + (90 * RAD)) * movesteps);
     }
-    if (!hit_wall(g_mv.newxplyr, g_mv.newyplyr))
+    if (hit_wall(g_mv.newxplyr, g_mv.newyplyr) != '1' && hit_wall(g_mv.newxplyr, g_mv.newyplyr) != '2' )
     {
         g_dt.pos_x = g_mv.newxplyr; 
         g_dt.pos_y = g_mv.newyplyr;
@@ -120,8 +121,10 @@ int     hit_wall(float x, float y)
         return (1);
     mapx = floor(x / TILE);
     mapy = floor(y / TILE);
-    if (g_dt.mmp[mapy][mapx] == '1' || g_dt.mmp[mapy][mapx] == '2' ||  g_dt.mmp[mapy][mapx] == 32 )
-        return (1);
-    else 
-        return (0);
+    return (g_dt.mmp[mapy][mapx]);
+
+    // if (g_dt.mmp[mapy][mapx] == '1' || g_dt.mmp[mapy][mapx] == '2' ||  g_dt.mmp[mapy][mapx] == 32 )
+    //     return (1);
+    // else 
+    //     return (0);
 }

@@ -6,30 +6,54 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 00:34:37 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/21 06:11:14 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/24 19:33:31 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <float.h>
 
-int     hit_wall_h(t_dt dt, t_mv mv)
-{
-    int mapx;
-    int mapy;
+// t_sprite    get_sprite_position(int x, int y)
+// {
+//     t_sprite        sp;
+
+//     sp.x = x;
+//     sp.y = y;
+//     return (sp);
+// // }
+// int     hit_wall_h(t_dt dt, t_mv mv)
+// {
+//     int mapx;
+//     int mapy;
+//     if(mv.rayup && !dt.verthit)
+//          dt.wallhity -= 1;
+//     if (!mv.rayright && dt.verthit)
+//         dt.wallhitx -= 1;
+//     //printf("%f\n", mv.rayangle);
+//     mapx = floor(dt.wallhitx / TILE);
+//     mapy = floor(dt.wallhity / TILE);
+//     if (g_dt.mmp[mapy][mapx] == '2')
+//     {
+//          rect(mapx, mapy, 0xFF00FA);
+//         // append(&g_lst, get_sprite_position(mapx, mapy));
+//         return (1);
+//     }
+//     else 
+//         return (0);
+// }
+
+void    get_center_coor()
+{   
+    int x;
+    int y;
     
-    if(mv.rayup && !dt.verthit)
-         dt.wallhity -= 1;
-    if (!mv.rayright && dt.verthit)
-        dt.wallhitx -= 1;
-    //printf("%f\n", mv.rayangle);
-    mapx = floor(dt.wallhitx / TILE);
-    mapy = floor(dt.wallhity / TILE);
-    if (g_dt.mmp[mapy][mapx] == '2')
-        return (1);
-    else 
-        return (0);
+    x = (int)(g_sp.x / TILE);
+    g_sp.center_x = (int)(x * TILE + (TILE / 2)) ;
+    y = (int)(g_sp.y / TILE);
+    g_sp.center_y = (int)(y * TILE + (TILE / 2)) ;
 }
+
+
 
 void    cast_rays(t_dt *dt, t_mv *mv)
 {
@@ -40,15 +64,24 @@ void    cast_rays(t_dt *dt, t_mv *mv)
     i = 0;
     while (i < g_dt.numrays)
     { 
-        fix_cast_angle();
+       fix_cast_angle();
         ray_casting(dt, mv, i);
         dt[i].sp = 0;
         print_line(dt[i].wallhitx * MINIM, dt[i].wallhity * MINIM);
-        if (hit_wall_h(dt[i], mv[i]))
-            dt[i].sp = 1;
+        // if (hit_wall_h(dt[i], mv[i]))
+        // {
+        //     dt[i].sp = 1;
+        // }
+        printf("%d %d \n" , g_sp.x , g_sp.y);
         g_mv.rayangle += FOV / g_dt.numrays;
         i++;
     }
+    // t_list *lst = g_lst;
+    // while (lst)
+    // {
+    //         printf("%d %d\n", lst->sp.x, lst->sp.y);
+    //         lst = lst->next;
+    // }
 }
 
 float   normalize_angle()
@@ -73,18 +106,20 @@ void    ray_casting(t_dt *dt , t_mv *mv, int i)
     
     float xstep;
     float ystep;
-    float intrceptx;
-    float intrcepty;
     
     xstep = 0;
     ystep = 0;
-    intrceptx = 0;
-    intrcepty = 0;
-    horizontal_inter(xstep, ystep, intrceptx, intrcepty);
-    vertical_inter(xstep, ystep, intrceptx, intrcepty);
-    
+    horizontal_inter(xstep, ystep);
+    vertical_inter(xstep, ystep);
+ 
     g_dt.hhitdis = (g_dt.horzhit) ? calculate_dist(g_dt.horwllhitx,g_dt.horwllhity) : FLT_MAX;
     g_dt.vhitdis = (g_dt.verthit) ? calculate_dist(g_dt.verwllhitx,g_dt.verwllhity) : FLT_MAX;
+
+    ///check if sprite
+    g_sp.hhitdis = (g_sp.horzhit) ? calculate_dist(g_sp.sp_horhitx ,g_sp.sp_horhity) : FLT_MAX;
+    g_sp.vhitdis = (g_sp.verthit) ? calculate_dist(g_sp.sp_verhitx ,g_sp.sp_verhity) : FLT_MAX;
+
+    
 
     if (g_dt.vhitdis < g_dt.hhitdis)
     {   
@@ -104,11 +139,39 @@ void    ray_casting(t_dt *dt , t_mv *mv, int i)
         // dt[i].wllhitcnt = g_dt.horwllcnt;
         dt[i].verthit = 0;
     }
+    //////////////////////////////////////////////////////
+    
+    if (g_sp.vhitdis < g_sp.hhitdis)
+    {   
+        g_sp.dist_plyr_sp = g_sp.vhitdis;
+        g_sp.x = g_sp.sp_verhitx;
+        g_sp.y = g_sp.sp_verhity;
+        // dt[i].wllhitcnt = g_dt.verwllcnt;
+        ///
+        g_sp.verthit = 1;
+    }
+    else 
+    {
+        g_sp.dist_plyr_sp = g_sp.hhitdis;
+        g_sp.x = g_sp.sp_horhitx;
+        g_sp.y = g_sp.sp_horhity;
+        // dt[i].wllhitcnt = g_dt.verwllcnt;
+        ///
+        g_sp.verthit = 0;
+    }
+
+    
     mv[i].rayangle = g_mv.rayangle;
     mv[i].raydown = g_mv.raydown;
     mv[i].rayup = g_mv.rayup;
     mv[i].rayleft = g_mv.rayleft;
     mv[i].rayright = g_mv.rayright;
+
+    get_center_coor();
+    
+    // printf("%d  %d\n", g_sp.x, g_sp.y );
+    printf("%d  %d\n",g_sp.center_x ,g_sp.center_y ); 
+   
 }
 float    calculate_dist(float x2, float y2)
 {

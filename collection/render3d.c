@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 06:26:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/21 05:39:45 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/24 16:18:10 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void    render3d(t_dt *dt, t_mv *mv)
         while (y < g_dt.walltop)/////ceilling
         {
              if (i < 0 || i > g_dt.long_l * TILE || y < 0 || y > g_dt.nbr_lines  * TILE
-                || i > g_dt.long_l * TILE|| y >  g_dt.nbr_lines  * TILE)
+                || i > g_dt.long_l * TILE|| y >  g_dt.nbr_lines * TILE)
                 break;
             if (((g_dt.size_l * (g_dt.nbr_lines * TILE)) / 4) > (y * (g_dt.long_l * TILE) + i))
                 g_dt.addrmlx[y * (g_dt.long_l * TILE) + i] = 0x808080;

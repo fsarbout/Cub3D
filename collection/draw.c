@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:55:41 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/21 02:15:10 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/24 18:19:24 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void   mlxs()
     g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.long_l * TILE, g_dt.nbr_lines * TILE);
 	g_dt.addrmlx = (int*)mlx_get_data_addr(g_dt.imgmlx, &g_dt.bpp, &g_dt.size_l,
                                  &g_dt.endian);
-    draw_map();
+    update();
     mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0);
     mlx_loop_hook(g_dt.mlx ,hooking, param);
     mlx_loop(g_dt.mlx);
@@ -48,8 +48,8 @@ void        draw_map()
                 rect(tilex * MINIM, tiley  * MINIM, 0xFFFFFF);
             else if (g_dt.mmp[y][x] == '0' || g_dt.mmp[y][x] != ' ')
                 rect(tilex * MINIM, tiley * MINIM, 0xA0A0A0);
-            // if (g_dt.mmp[y][x] == '2')
-            //      draw_circle_s(x , y);
+            if (g_dt.mmp[y][x] == '2')
+                 rect(tilex * MINIM, tiley * MINIM, 0xD3Df4a);
             x++;
         }
         y++;
@@ -123,7 +123,7 @@ void        draw_circle(int color)
         i = 0;
         while (i < 360)
         {
-            angle = i * ( M_PI / 180); 
+            angle = i * RAD; 
             x = (int)(g_dt.pos_x + (r * cos(angle))) * MINIM;
             y = (int)(g_dt.pos_y + (r * sin(angle))) * MINIM;
             g_dt.addrmlx[y * (g_dt.long_l * TILE) + x] = color;

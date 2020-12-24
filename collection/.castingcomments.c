@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:22:01 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/20 00:09:46 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/24 16:45:09 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void    ray_castintg(float rayangle) //castRay with pikuma
         // checkvx = nxtverhitx;
         // checkvy = nxtverhity + (g_mv.rayup ? -1 : 0);
         // if (hit_wall(nxtverhitx, nxtverhity + (g_mv.rayup ? -1 : 0)))
-         if (hit_wall(nxtverhitx, nxtverhity ))
+         if (hit_wall(nxtverhitx, nxtverhity ) == '1')
         {
             verthit = 1;
             g_dt.verwllhitx = nxtverhitx;
