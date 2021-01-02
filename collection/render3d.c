@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 06:26:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/24 16:18:10 by fsarbout         ###   ########.fr       */
+/*   Updated: 2020/12/31 15:10:20 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,17 @@ void    render3d(t_dt *dt, t_mv *mv)
 
 void    calc_render3d(t_dt *dt, t_mv *mv, int *i, int *j)
 {    
+
+    ///forgot why
     g_txt.txt_offsetx = dt[*i].verthit ? (int)dt[*i].wallhity % 64 
         : (int)dt[*i].wallhitx % 64;
+    //distance from palyer to pplane
     g_dt.perpdist = dt[*i].distance * cos(mv[*i].rayangle - g_dt.plyr_angl);
-    g_dt.prjctwallheight = (TILE/ g_dt.perpdist) * g_dt.distpplane;
-    g_dt.wallstripheight = (int)g_dt.prjctwallheight;
+    g_dt.prjctwallheight = (TILE/ g_dt.perpdist) * g_dt.distpplane;// camera plane
+    g_dt.wallstripheight = (int)g_dt.prjctwallheight; //also forgoten
     g_dt.walltop = ((g_dt.rsltn_h) / 2) - (g_dt.wallstripheight / 2);
     g_dt.walltop = g_dt.walltop < 0 ? 0 : g_dt.walltop;
+    ////
     g_dt.wallbttm = ((g_dt.rsltn_h) / 2) + (g_dt.wallstripheight /2);
     g_dt.wallbttm = g_dt.wallbttm > (g_dt.rsltn_h) ? (g_dt.rsltn_h) : g_dt.wallbttm;
     

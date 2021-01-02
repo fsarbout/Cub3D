@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.c                                           :+:      :+:    :+:   */
+/*   sprite_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/18 06:14:27 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/01 12:44:44 by fsarbout         ###   ########.fr       */
+/*   Created: 2021/01/01 11:37:07 by fsarbout          #+#    #+#             */
+/*   Updated: 2021/01/02 19:44:25 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-void    treat_sprite(char **element_data)
-{
-    if (!(g_txt.sp_txt = (int*)mlx_xpm_file_to_image(g_dt.mlx, element_data[1]
-        ,&g_dt.width, &g_dt.height)))
-        print_error("   path of sprite texture invlid!\n");
+t_coor    get_center_coor(float spx, float spy)
+{   
+    t_coor center;
+    t_list *list;
+    
+    list = malloc(sizeof(t_list));
+    
+    center.x = (int)(spx / TILE);
+    list->sp.center.x = (int)(center.x * TILE + (TILE / 2)) ;
+    center.y = (int)(spy / TILE);
+    list->sp.center.y = (int)(center.y * TILE + (TILE / 2)) ;
+    return (list->sp.center);
 }
-
-// void    sprite_angle()
-// {
-//     float angle_centre;
-
-//     angle_centre = atan()
-    
-    
-
-// }

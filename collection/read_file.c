@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 00:14:05 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/21 03:04:56 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/01 11:59:28 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void   collect_data(char *line, char **av)
     line = NULL; 
     struct_intialize();
     if (!(fd = open(av[1], O_RDONLY)))
-        print_error("   invlid file\n");
+        print_error("   invalid file\n");
     while (get_next_line(fd, &line) && i < 8)
     {  
         i++;

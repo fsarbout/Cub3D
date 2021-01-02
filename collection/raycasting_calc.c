@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 00:34:37 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/24 19:33:31 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/01 14:39:18 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,17 @@
 //         return (0);
 // }
 
-void    get_center_coor()
-{   
-    int x;
-    int y;
+//////should be wihtout global variable 
+// void    get_center_coor(t_list *sp)
+// {   
+//     int x;
+//     int y;
     
-    x = (int)(g_sp.x / TILE);
-    g_sp.center_x = (int)(x * TILE + (TILE / 2)) ;
-    y = (int)(g_sp.y / TILE);
-    g_sp.center_y = (int)(y * TILE + (TILE / 2)) ;
-}
+//     x = (int)(g_sp.x / TILE);
+//     g_sp.center_x = (int)(x * TILE + (TILE / 2)) ;
+//     y = (int)(g_sp.y / TILE);
+//     g_sp.center_y = (int)(y * TILE + (TILE / 2)) ;
+// }
 
 
 
@@ -72,7 +73,7 @@ void    cast_rays(t_dt *dt, t_mv *mv)
         // {
         //     dt[i].sp = 1;
         // }
-        printf("%d %d \n" , g_sp.x , g_sp.y);
+        // printf("%d %d \n" , g_sp.x , g_sp.y);
         g_mv.rayangle += FOV / g_dt.numrays;
         i++;
     }
@@ -101,11 +102,12 @@ void    fix_cast_angle()
     g_mv.rayleft = !g_mv.rayright;
 }
 
-void    ray_casting(t_dt *dt , t_mv *mv, int i)
+void    ray_casting( t_dt *dt , t_mv *mv, int i)
 {
     
     float xstep;
     float ystep;
+    // t_list *sprite;
     
     xstep = 0;
     ystep = 0;
@@ -116,9 +118,10 @@ void    ray_casting(t_dt *dt , t_mv *mv, int i)
     g_dt.vhitdis = (g_dt.verthit) ? calculate_dist(g_dt.verwllhitx,g_dt.verwllhity) : FLT_MAX;
 
     ///check if sprite
-    g_sp.hhitdis = (g_sp.horzhit) ? calculate_dist(g_sp.sp_horhitx ,g_sp.sp_horhity) : FLT_MAX;
-    g_sp.vhitdis = (g_sp.verthit) ? calculate_dist(g_sp.sp_verhitx ,g_sp.sp_verhity) : FLT_MAX;
-
+    /*////////////////sp////////////////*/
+    // g_sp.hhitdis = (g_sp.horzhit) ? calculate_dist(g_sp.sp_horhitx ,g_sp.sp_horhity) : FLT_MAX;
+    // g_sp.vhitdis = (g_sp.verthit) ? calculate_dist(g_sp.sp_verhitx ,g_sp.sp_verhity) : FLT_MAX;
+     /*////////////////sp////////////////*/
     
 
     if (g_dt.vhitdis < g_dt.hhitdis)
@@ -140,26 +143,26 @@ void    ray_casting(t_dt *dt , t_mv *mv, int i)
         dt[i].verthit = 0;
     }
     //////////////////////////////////////////////////////
-    
-    if (g_sp.vhitdis < g_sp.hhitdis)
-    {   
-        g_sp.dist_plyr_sp = g_sp.vhitdis;
-        g_sp.x = g_sp.sp_verhitx;
-        g_sp.y = g_sp.sp_verhity;
-        // dt[i].wllhitcnt = g_dt.verwllcnt;
-        ///
-        g_sp.verthit = 1;
-    }
-    else 
-    {
-        g_sp.dist_plyr_sp = g_sp.hhitdis;
-        g_sp.x = g_sp.sp_horhitx;
-        g_sp.y = g_sp.sp_horhity;
-        // dt[i].wllhitcnt = g_dt.verwllcnt;
-        ///
-        g_sp.verthit = 0;
-    }
-
+     /*////////////////sp////////////////*/
+    // if (g_sp.vhitdis < g_sp.hhitdis)
+    // {   
+    //     g_sp.dist_plyr_sp = g_sp.vhitdis;
+    //     g_sp.x = g_sp.sp_verhitx;
+    //     g_sp.y = g_sp.sp_verhity;
+    //     // dt[i].wllhitcnt = g_dt.verwllcnt;
+    //     ///
+    //     g_sp.verthit = 1;
+    // }
+    // else 
+    // {
+    //     g_sp.dist_plyr_sp = g_sp.hhitdis;
+    //     g_sp.x = g_sp.sp_horhitx;
+    //     g_sp.y = g_sp.sp_horhity;
+    //     // dt[i].wllhitcnt = g_dt.verwllcnt;
+    //     ///
+    //     g_sp.verthit = 0;
+    // }
+ /*////////////////sp////////////////*/
     
     mv[i].rayangle = g_mv.rayangle;
     mv[i].raydown = g_mv.raydown;
@@ -167,10 +170,10 @@ void    ray_casting(t_dt *dt , t_mv *mv, int i)
     mv[i].rayleft = g_mv.rayleft;
     mv[i].rayright = g_mv.rayright;
 
-    get_center_coor();
+    // get_center_coor();
     
     // printf("%d  %d\n", g_sp.x, g_sp.y );
-    printf("%d  %d\n",g_sp.center_x ,g_sp.center_y ); 
+    // printf("%d  %d\n",g_sp.center_x ,g_sp.center_y ); 
    
 }
 float    calculate_dist(float x2, float y2)

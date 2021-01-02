@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:37:57 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/24 18:23:45 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/01 12:08:17 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,4 @@ int     hit_wall(float x, float y)
     mapx = floor(x / TILE);
     mapy = floor(y / TILE);
     return (g_dt.mmp[mapy][mapx]);
-
-    // if (g_dt.mmp[mapy][mapx] == '1' || g_dt.mmp[mapy][mapx] == '2' ||  g_dt.mmp[mapy][mapx] == 32 )
-    //     return (1);
-    // else 
-    //     return (0);
 }

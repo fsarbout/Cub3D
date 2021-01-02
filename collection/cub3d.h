@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 19:33:08 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/12/24 19:27:23 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/02 16:55:07 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ typedef struct s_dt
 	float  	checky;
 	float 	interx;
 	float 	intery;
+	float 	nxtvrthitx;
+	float	nxtvrthity;
+	float 	nxthorhitx;
+	float	nxthorhity;
 }			t_dt;
 
 ///////////
@@ -146,12 +150,19 @@ typedef struct	s_txt
 	void	*sp_txt;
 }				t_txt;
 //////////////////////////////////
+typedef struct s_coor
+{
+	float x;
+	float y;
+}	t_coor;
+
 typedef struct s_sp
 {
 	int x;
 	int y;
-	int center_x;
-	int center_y;
+	// int center_x;
+	// int center_y;
+	t_coor center;
 	float sp_hordist;
 	float sp_verdist;
 	float dist_plyr_sp;
@@ -159,22 +170,22 @@ typedef struct s_sp
 	float sp_horhity;
 	float sp_verhitx;
 	float sp_verhity;
-	float	hhitdis;
-	float	vhitdis;
+	// float	hhitdis;
+	// float	vhitdis;
 	int horzhit;	
 	int verthit;
 }	t_sp;
 
 typedef struct	s_list
 {
-	t_sp sp;
-	struct s_list *next;
+	t_sp 	sp;
+	struct	s_list *next;
 }				t_list;
 
-t_list 	*g_lst;
+t_list 	g_lst;
 
 
-t_sp g_sp;
+//  ,.
 
 //////////////////////////////////
 t_txt 	g_txt;
@@ -220,8 +231,8 @@ void    	move_playeer();
 void    	draw_ray(float x1 , float y1);
 float    	calculate_dist(float x2, float y2);
 void    	vertical_inter(float xstep, float ystep);
-void    	horizontal_loop(float xstep,float ystep,float nxthorzhitx, float nxthorzhity);
-void    	vertical_loop(float xstep,float ystep,float nxtverhitx, float nxtverhity);
+void    	horizontal_loop(float xstep,float ystep);
+void    	vertical_loop(float xstep,float ystep);
 void    	render3d(t_dt *dt, t_mv *mv);
 void    	horizontal_inter(float xstep, float ystep);
 void    	treat_txt(char **element_data, void **img, int *flag);
@@ -229,7 +240,9 @@ int 		check_txt_name(char **element, char *txt, int flag);
 void		print_error(char *string);
 void    	calc_render3d(t_dt *dt, t_mv *mv, int *i, int *j);
 void        draw_circle_s(int xstart, int ystart);
-void    	get_center_coor();
+t_coor    	get_center_coor(float spx, float spy);
+void    	sprite_calc(t_list *list);
+
 // void		append(t_list **lst, t_sprite sp);
 // void		clear_list(t_list **lst);
 
