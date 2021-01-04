@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 18:20:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/01 11:41:42 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/04 10:43:26 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 int main(int ac, char **av)
 {
     char *line;
+    // t_list *list;
     void    *param;
 
+    //list = malloc(sizeof(t_list));
+    // list = NULL;
     line = NULL;
     param = NULL;
     if (ac != 2)

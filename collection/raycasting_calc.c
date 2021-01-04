@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 00:34:37 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/01 14:39:18 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/04 11:25:07 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,17 @@
 
 void    cast_rays(t_dt *dt, t_mv *mv)
 {
-    // int numrays;
     int i; 
-    // g_dt.numrays = g_dt.rsltn_w / WALL_S_W
+
+    t_list *list;
+
+    list = NULL;
     g_mv.rayangle = g_dt.plyr_angl - (FOV / 2);
     i = 0;
     while (i < g_dt.numrays)
     { 
        fix_cast_angle();
-        ray_casting(dt, mv, i);
+        ray_casting(dt, mv, i, &list);
         dt[i].sp = 0;
         print_line(dt[i].wallhitx * MINIM, dt[i].wallhity * MINIM);
         // if (hit_wall_h(dt[i], mv[i]))
@@ -85,8 +87,9 @@ void    cast_rays(t_dt *dt, t_mv *mv)
     // }
 }
 
-float   normalize_angle()
+float   normalize_angle(float angle)
 {
+    g_mv.rayangle = angle;
     g_mv.rayangle = remainder(g_mv.rayangle , (2 * M_PI));
     if (g_mv.rayangle < 0)
         g_mv.rayangle = (2 * M_PI) + g_mv.rayangle;
@@ -95,24 +98,28 @@ float   normalize_angle()
 
 void    fix_cast_angle()
 {
-    g_mv.rayangle = normalize_angle();
+    g_mv.rayangle = normalize_angle(g_mv.rayangle);
     g_mv.raydown = g_mv.rayangle > 0 && g_mv.rayangle < M_PI;
     g_mv.rayup = !g_mv.raydown;
     g_mv.rayright = g_mv.rayangle < 0.5 * M_PI || g_mv.rayangle > 1.5 * M_PI;
     g_mv.rayleft = !g_mv.rayright;
 }
 
-void    ray_casting( t_dt *dt , t_mv *mv, int i)
+void    ray_casting( t_dt *dt , t_mv *mv, int i,  t_list **list)
 {
     
     float xstep;
     float ystep;
+    // t_list *list;
+
+    // list = NULL;
     // t_list *sprite;
+    //  t_coor coor;
     
     xstep = 0;
     ystep = 0;
-    horizontal_inter(xstep, ystep);
-    vertical_inter(xstep, ystep);
+    horizontal_inter(xstep, ystep, list);
+    vertical_inter(xstep, ystep, list);
  
     g_dt.hhitdis = (g_dt.horzhit) ? calculate_dist(g_dt.horwllhitx,g_dt.horwllhity) : FLT_MAX;
     g_dt.vhitdis = (g_dt.verthit) ? calculate_dist(g_dt.verwllhitx,g_dt.verwllhity) : FLT_MAX;
@@ -151,6 +158,8 @@ void    ray_casting( t_dt *dt , t_mv *mv, int i)
     //     g_sp.y = g_sp.sp_verhity;
     //     // dt[i].wllhitcnt = g_dt.verwllcnt;
     //     ///
+    //     // coor = get_center_coor(g_sp.x,g_sp.y);
+    //      coor = get_center_coor(g_sp.x,g_sp.y);
     //     g_sp.verthit = 1;
     // }
     // else 
@@ -158,6 +167,7 @@ void    ray_casting( t_dt *dt , t_mv *mv, int i)
     //     g_sp.dist_plyr_sp = g_sp.hhitdis;
     //     g_sp.x = g_sp.sp_horhitx;
     //     g_sp.y = g_sp.sp_horhity;
+    //     coor = get_center_coor(g_sp.x,g_sp.y);
     //     // dt[i].wllhitcnt = g_dt.verwllcnt;
     //     ///
     //     g_sp.verthit = 0;
@@ -172,9 +182,9 @@ void    ray_casting( t_dt *dt , t_mv *mv, int i)
 
     // get_center_coor();
     
-    // printf("%d  %d\n", g_sp.x, g_sp.y );
-    // printf("%d  %d\n",g_sp.center_x ,g_sp.center_y ); 
-   
+    // printf("%d x and y %d\n", g_sp.x, g_sp.y );
+    // // if (g_sp.center_x != 0 && g_sp.center_y)
+    // printf("%f  %f\n", coor.x ,coor.y ); 
 }
 float    calculate_dist(float x2, float y2)
 {

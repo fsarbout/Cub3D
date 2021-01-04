@@ -1,16 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .linked_lists.c                                    :+:      :+:    :+:   */
+/*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/30 12:13:10 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/01 16:47:20 by fsarbout         ###   ########.fr       */
+/*   Created: 2020/12/24 10:29:51 by fsarbout          #+#    #+#             */
+/*   Updated: 2021/01/04 11:32:22 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void append(t_list **lst, t_sp sp)
+{
+    t_list      *tmp;
+
+    if (!(*lst))
+    {
+        *lst = malloc(sizeof(t_list));
+        (*lst)->sp = sp;
+        (*lst)->next = NULL;
+    }
+    tmp = *lst;
+    while (tmp->next)
+    {
+        tmp = tmp->next;
+
+    }
+    tmp->next = malloc(sizeof(t_list));
+    tmp->next->sp = sp;
+    tmp->next->next = NULL;
+}
+
+void clear_list(t_list **lst)
+{
+    if (*lst)
+    {
+        if ((*lst)->next)
+            clear_list(&(*lst)->next);
+        free(*lst);
+        *lst =NULL;
+    }
+}
 
 t_list  *newlst(t_sp sp)
 {
@@ -24,23 +56,28 @@ t_list  *newlst(t_sp sp)
     return (new);
 }
 
-t_list  *lst_add_back(t_list **head, t_sp spr)
+void  lst_add_back(t_list **head, t_sp spr)
 {
     t_list *node = malloc(sizeof(t_list));
     t_list *lastnode;
     node->sp = spr;
     node->next = NULL;
-
-    if (!head)
-        head = node;
+    if ((*head) == NULL)
+    {
+        //printf("start %d\n", spr.x);
+        *head = node;
+        //printf("start\n");
+    }
     else 
     {
-        lastnode = head;
-        while (lastnode->next)
-            lastnode = lastnode->next;
-        lastnode->next = node;     
+        // printf("start2\n");
+
+        lastnode = *head;
+        while ((*head)->next)
+            (*head) = (*head)->next;
+        (*head)->next = node;     
+        *head = lastnode;
     }        
-    return head;
 }
 
 // t_list* insertNodeAtTail(t_list* head, int data)

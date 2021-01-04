@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:37:57 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/01 12:08:17 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/04 11:13:37 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int    hooking(void *param)
     mlx_hook(g_dt.window, 2, 0, keypressed, param);
     mlx_hook(g_dt.window, 3, 0, keyreleased, param);
     mlx_hook(g_dt.window, 17, 0, exiit, param);
-    update();
+    // update();
     return (1);
     
 }
@@ -85,8 +85,8 @@ void    update()
     cast_rays(dt,mv);
     render3d(dt,mv);
     // clear_list(&g_lst);
-     draw_map();
-     cast_rays(dt,mv);
+    draw_map();
+    cast_rays(dt,mv);
     mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0); 
 }
 
