@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 06:26:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/09 18:01:29 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/10 12:23:29 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,41 +103,28 @@ void    render_sprite(t_dt *dt, t_list **list)
     disp = *list;
     start = disp->sp.width_s;
     int pass = g_dt.nb_sprite;
-    while (pass)
-    {
-        
+    // while (pass)
+    // {
+        printf("width s %d, width e %d\n" ,disp->sp.width_s, disp->sp.width_e );
         while (start < disp->sp.width_e && disp->sp.width_s < (g_dt.long_l * TILE))
         {
-            //printf("width start %d , width end %d \n" ,disp->sp.width_s, disp->sp.width_e );
-           // printf("height start %d , height end %d \n" ,disp->sp.height_s, disp->sp.height_e );
-            //printf("win width == %d win hight == %d \n" , (g_dt.long_l * TILE) ,(g_dt.nbr_lines * TILE));
-            x_offs = (256 * (start - disp->sp.width_s) * TILE / disp->sp.height) / 256;
+            x_offs = ((64 * (start - disp->sp.width_s) * TILE / disp->sp.height) / 64);
+            // printf("x_of %d start %d start - disp->t %d\n", x_offs, start, start - disp->sp.width_s);
             y = disp->sp.height_s;
-            if (start >= 0 && start <= (g_dt.long_l * TILE)  /*&& disp->sp.dist_plyr_sp < dt[start].distance*/)
+            if (start >= 0 && start <= (g_dt.long_l * 64)  /*&& disp->sp.dist_plyr_sp < dt[start].distance*/)
             {
-                 //printf("%d  ----  %d\n",  y , disp->sp.height_e);
                 while (y < disp->sp.height_e)
                 {
                     d = y + (disp->sp.height / 2) - ((g_dt.nbr_lines * TILE) / 2);
                     y_offs = d * ((TILE * 1.0) / disp->sp.height);
-                    //printf ("offx %d --- offy %d \n", x_offs , y_offs);
-                   // if (((g_dt.size_line * (g_dt.nbr_lines * TILE)) / 4) > (y * (g_dt.long_l * TILE) + start))
-                   // { 
-                        //printf("so what1\n");
                         g_dt.color = (int)(g_txt.sprite_txt[(int)(64 * y_offs + x_offs)]);
                         if (g_dt.color != 0)
-                        {
                             g_dt.addrmlx[y * (g_dt.long_l * TILE) + start] = g_dt.color;
-                            ///printf("so what2\n");
-                        }
-                    //}
-                    // y_offs++;
                     y++;
                 }
             }
             start++;
         }
-    
-    pass--;
-    }
+    // pass--;
+    // }
 }

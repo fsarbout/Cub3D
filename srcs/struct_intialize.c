@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 18:43:12 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/01 12:46:08 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/10 10:09:11 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void    struct_intialize()
     g_txt = (t_txt){0};
     g_dt.mlx = mlx_init();
     g_mv.mvspd  = 6;
-    g_mv.rtnspd = 4 * RAD;
+    g_mv.rtnspd = 2 * RAD;
 }
