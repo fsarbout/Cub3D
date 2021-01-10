@@ -132,8 +132,6 @@ typedef struct s_sp
 	int height_e;
 	int width_s;
 	int width_e;
-	
-
 }	t_sp;
 
 typedef struct	s_list

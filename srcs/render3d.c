@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 06:26:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/10 12:23:29 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/10 18:59:46 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,19 @@ void    render_sprite(t_dt *dt, t_list **list)
     
     disp = *list;
     start = disp->sp.width_s;
+    printf(" start %d\n ", start);
     int pass = g_dt.nb_sprite;
     while (pass)
     {
+
         while (start < disp->sp.width_e && disp->sp.width_s < (g_dt.long_l * TILE))
         {
             x_offs = ((64 * (start - disp->sp.width_s) * TILE / disp->sp.height) / 64);
             y = disp->sp.height_s;
             if (start >= 0 && start <= (g_dt.long_l * 64)  && disp->sp.dist_plyr_sp < dt[start].distance)
             {
+                // printf("distance player from wall %f\n" , disp->sp.dist_plyr_sp);
+                // printf("distance player from sprite %f\n" , dt[start].distance);
                 while (y < disp->sp.height_e)
                 {
                     d = y + (disp->sp.height / 2) - ((g_dt.nbr_lines * TILE) / 2);
