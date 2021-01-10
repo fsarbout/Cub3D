@@ -58,5 +58,6 @@ void        sort_list(t_list *lst);
 void        clear_list(t_list **lst);
 void        render_sprite(t_dt *dt, t_list **list);
 int         check_exists(t_list *lst, float x, float y);
+void        draw_sprite(t_list **list, t_dt *dt);
 
 #endif

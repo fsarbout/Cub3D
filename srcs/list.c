@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:29:51 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/09 15:52:04 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/10 19:30:40 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void    sort_list(t_list *lst)
         inside = lst->next;
         while (inside)
         {
-            if (lst->sp.dist_plyr_sp > inside->sp.dist_plyr_sp)
+            if (lst->sp.dist_plyr_sp < inside->sp.dist_plyr_sp)
             {
                 sprite = lst->sp;
                 lst->sp = inside->sp;

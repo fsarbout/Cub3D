@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:37:57 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/10 19:02:21 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/10 19:28:18 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,19 @@ void    update()
     cast_rays(dt,mv, &list);
     if (list)
     {
-        sort_list(list);
-        render_sprite(dt,&list);
+         sort_list(list);
+        draw_sprite(&list , dt);
+        // render_sprite(dt,&list);
         // draw_sprites(dt, &list);
     } 
     clear_list(&list);
     mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0); 
 }
+
+
+
+
+
 
 void    move_playeer()
 {

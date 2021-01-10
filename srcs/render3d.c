@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 06:26:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/10 18:59:46 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/10 19:28:39 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,31 +102,58 @@ void    render_sprite(t_dt *dt, t_list **list)
     
     disp = *list;
     start = disp->sp.width_s;
-    printf(" start %d\n ", start);
-    int pass = g_dt.nb_sprite;
-    while (pass)
+    while (start < disp->sp.width_e && disp->sp.width_s < (g_dt.long_l * TILE))
     {
-
-        while (start < disp->sp.width_e && disp->sp.width_s < (g_dt.long_l * TILE))
+        x_offs = ((64 * (start - disp->sp.width_s) * TILE / disp->sp.height) / 64);
+        y = disp->sp.height_s;
+        if (start >= 0 && start <= (g_dt.long_l * 64)  && disp->sp.dist_plyr_sp < dt[start].distance)
         {
-            x_offs = ((64 * (start - disp->sp.width_s) * TILE / disp->sp.height) / 64);
-            y = disp->sp.height_s;
-            if (start >= 0 && start <= (g_dt.long_l * 64)  && disp->sp.dist_plyr_sp < dt[start].distance)
+            while (y < disp->sp.height_e)
             {
-                // printf("distance player from wall %f\n" , disp->sp.dist_plyr_sp);
-                // printf("distance player from sprite %f\n" , dt[start].distance);
-                while (y < disp->sp.height_e)
-                {
-                    d = y + (disp->sp.height / 2) - ((g_dt.nbr_lines * TILE) / 2);
-                    y_offs = d * ((TILE * 1.0) / disp->sp.height);
-                        g_dt.color = (int)(g_txt.sprite_txt[(int)(64 * y_offs + x_offs)]);
-                        if (g_dt.color != 0)
-                            g_dt.addrmlx[y * (g_dt.long_l * TILE) + start] = g_dt.color;
-                    y++;
-                }
+                d = y + (disp->sp.height / 2) - ((g_dt.nbr_lines * TILE) / 2);
+                y_offs = d * ((TILE * 1.0) / disp->sp.height);
+                    g_dt.color = (int)(g_txt.sprite_txt[(int)(64 * y_offs + x_offs)]);
+                    if (g_dt.color != 0)
+                        g_dt.addrmlx[y * (g_dt.long_l * TILE) + start] = g_dt.color;
+                y++;
             }
-            start++;
         }
-    pass--;
+        start++;
     }
 }
+
+
+void    draw_sprite(t_list **list, t_dt *dt)
+{
+    int i;
+    t_list *disp;
+
+    disp = *list;
+    // i = 0;
+    while (disp)
+    {
+        render_sprite(dt, &disp);
+        disp = disp->next;
+    }
+}
+
+// void	draw_sprite(t_player plr, t_data info)
+// {
+// 	t_sprite	sprt;
+// 	t_crd		*sprites;
+
+// 	sprites = (t_crd *)malloc(sizeof(t_crd) * g_sprite_num);
+// 	store_sprite_position(sprites, info);
+// 	initial_sprite_properties(sprites, plr);
+// 	sort_sprites(&sprites);
+// 	sprt.i = 0;
+// 	while (sprt.i < g_sprite_num)
+// 	{
+// 		calc_sprite_info(&sprt, plr, info, sprites);
+// 		draw_sprite_texture(sprt, info, sprt.i);
+// 		sprt.i++;
+// 	}
+// 	free(g_sprite_distance);
+// 	free(g_wall_distance);
+// 	free(sprites);
+// }
