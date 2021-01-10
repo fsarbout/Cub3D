@@ -103,15 +103,13 @@ void    render_sprite(t_dt *dt, t_list **list)
     disp = *list;
     start = disp->sp.width_s;
     int pass = g_dt.nb_sprite;
-    // while (pass)
-    // {
-        printf("width s %d, width e %d\n" ,disp->sp.width_s, disp->sp.width_e );
+    while (pass)
+    {
         while (start < disp->sp.width_e && disp->sp.width_s < (g_dt.long_l * TILE))
         {
             x_offs = ((64 * (start - disp->sp.width_s) * TILE / disp->sp.height) / 64);
-            // printf("x_of %d start %d start - disp->t %d\n", x_offs, start, start - disp->sp.width_s);
             y = disp->sp.height_s;
-            if (start >= 0 && start <= (g_dt.long_l * 64)  /*&& disp->sp.dist_plyr_sp < dt[start].distance*/)
+            if (start >= 0 && start <= (g_dt.long_l * 64)  && disp->sp.dist_plyr_sp < dt[start].distance)
             {
                 while (y < disp->sp.height_e)
                 {
@@ -125,6 +123,6 @@ void    render_sprite(t_dt *dt, t_list **list)
             }
             start++;
         }
-    // pass--;
-    // }
+    pass--;
+    }
 }
