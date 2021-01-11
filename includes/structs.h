@@ -75,25 +75,43 @@ typedef struct s_dt
 	/////////////////////////////
 	float 	angle_plyr;
 	int 	nb_sprite;
-}			t_dt;
-
-
-typedef struct  s_mv
-{
+	int		spr;
+	float 	xstep;
+	float 	ystep;
+	float 	sp_hitx;
+	float	sp_hity;
 	float	turndir;
 	float	walkdir;
 	float 	walkdirsd;
 	float	mvspd;
 	float	rtnspd;
 	float 	newxplyr;
-    float 	newyplyr;
+	float 	newyplyr;
 	int 	raydown;
-    int 	rayup;
-    int 	rayleft;
-    int 	rayright;
+	int 	rayup;
+	int 	rayleft;
+	int 	rayright; 
 	float 	raydist;
 	float 	rayangle;
-}			t_mv;
+
+}			t_dt;
+
+// typedef struct  s_mv
+// {
+// 	float	turndir;
+// 	float	walkdir;
+// 	float 	walkdirsd;
+// 	float	mvspd;
+// 	float	rtnspd;
+// 	float 	newxplyr;
+//     float 	newyplyr;
+// 	int 	raydown;
+//     int 	rayup;
+//     int 	rayleft;
+//     int 	rayright; 
+// 	float 	raydist;
+// 	float 	rayangle;
+// }			t_mv;
 
 typedef struct	s_txt
 {
@@ -122,6 +140,7 @@ typedef struct s_sp
 	t_coor center;
 	float sp_hordist;
 	float sp_verdist;
+	float dist_plyr_sp_c;
 	float dist_plyr_sp;
 	float angle;
 	int 	horzhit;	
@@ -131,6 +150,9 @@ typedef struct s_sp
 	int height_e;
 	int width_s;
 	int width_e;
+	float points_center_x;
+	float points_center_y;
+
 }	t_sp;
 
 typedef struct	s_list
@@ -140,7 +162,6 @@ typedef struct	s_list
 }				t_list;
 
 t_txt 	g_txt;
-t_mv	g_mv;
 t_dt	g_dt;
 
 
