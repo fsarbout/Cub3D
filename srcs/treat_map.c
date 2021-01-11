@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:46:23 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/09 16:45:55 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/11 10:44:32 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void    check_map(char *mp)
     g_dt.nbr_lines = lenght(map);
     g_dt.mmp = NULL;
     fill_maplines(map);
-    // i = 0;
-    // j = 0; 
     parse_map(map, i, j);
     if (g_dt.plyr   == 0)
         print_error("   missing player!\n");
@@ -85,7 +83,7 @@ void    fill_maplines(char **map)
      while (g_dt.nbr_lines)
     {
         lenght_l = ft_strlen(map[i]);
-        if (lenght_l > g_dt.long_l)
+        if (lenght_l > g_dt.long_l) 
             g_dt.long_l = lenght_l;
         i++;
         g_dt.nbr_lines--;

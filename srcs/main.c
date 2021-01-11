@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 18:20:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/01 11:41:42 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/11 10:54:08 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,8 @@ int main(int ac, char **av)
     }
     else
         collect_data(line, av);
-    g_dt.numrays = g_dt.long_l * TILE ;
-    // g_dt.numrays = 1 ;
+    g_dt.numrays = g_dt.rsltn_w ;
     mlxs();
-    // perror("Error: ");
-   
-    free(g_dt.mmp);
-    // free(g_mv.);
-
+   free (g_dt.mmp);
     return (0);
 }
-
-
-//         t_dt *data;
-// # define MALLOC(p) p = malloc(sizeof(*(p)))
-//         MALLOC(data);
-    
-//         data = malloc(sizeof(t_d

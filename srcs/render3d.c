@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 06:26:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/10 19:28:39 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/11 10:49:46 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,43 +26,43 @@ void    render3d(t_dt *dt, t_mv *mv, t_list **list)
     g_txt.addr_txt[3] = (int*)mlx_get_data_addr(g_txt.we_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
     g_txt.addr_txt[1] = (int*)mlx_get_data_addr(g_txt.ea_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
     
-    g_dt.distpplane = ((g_dt.long_l * TILE) / 2) / tan(FOV / 2);
+    g_dt.distpplane = ((g_dt.rsltn_w) / 2) / tan(FOV / 2);
     while (i < g_dt.numrays)
     {
         calc_render3d(dt, mv, &i, &j);
         y = 0;
         while (y < g_dt.walltop)/////ceilling
         {
-             if (i < 0 || i > g_dt.long_l * TILE || y < 0 || y > g_dt.nbr_lines  * TILE
-                || i > g_dt.long_l * TILE|| y >  g_dt.nbr_lines * TILE)
+             if (i < 0 || i >g_dt.rsltn_w || y < 0 || y > g_dt.rsltn_h
+                || i > g_dt.rsltn_w|| y > g_dt.rsltn_h)
                 break;
-            if (((g_dt.size_l * (g_dt.nbr_lines * TILE)) / 4) > (y * (g_dt.long_l * TILE) + i))
-                g_dt.addrmlx[y * (g_dt.long_l * TILE) + i] = 0x808080;
+            if (((g_dt.size_l * g_dt.rsltn_h) / 4) > (y * (g_dt.rsltn_w) + i))
+                g_dt.addrmlx[y * (g_dt.rsltn_w) + i] = 0x808080;
             y++;
         }
         y = g_dt.walltop;
         while (y < g_dt.wallbttm)////wall
         {
-            if (i < 0 || i > g_dt.long_l * TILE || y < 0 || y > g_dt.nbr_lines  * TILE
-                || i > g_dt.long_l * TILE|| y >  g_dt.nbr_lines  * TILE)
+            if (i < 0 || i >g_dt.rsltn_w || y < 0 || y > g_dt.rsltn_h
+                || i >g_dt.rsltn_w|| y >  g_dt.rsltn_h)
                 break;
             g_dt.dist_from_top = y + (g_dt.wallstripheight /  2) - ((g_dt.rsltn_h) / 2);
             g_txt.txt_offsety = g_dt.dist_from_top * ((float)64 / g_dt.wallstripheight);
             g_dt.color = (int)g_txt.addr_txt[j][(int)(64 * g_txt.txt_offsety + g_txt.txt_offsetx)];
-            if (((g_dt.size_l * (g_dt.nbr_lines * TILE)) / 4) > (y * (g_dt.long_l * TILE) + i))
-                g_dt.addrmlx[y * (g_dt.long_l * TILE) + i] = g_dt.color;
+            if (((g_dt.size_l * g_dt.rsltn_h) / 4) > (y * (g_dt.rsltn_w) + i))
+                g_dt.addrmlx[y * (g_dt.rsltn_w) + i] = g_dt.color;
             y++;
         }
         y = g_dt.wallbttm;
         while (y < (g_dt.rsltn_h)) ///floor loop
         {
-            if (i < 0 || i > g_dt.long_l* TILE || y < 0 || y > g_dt.nbr_lines  * TILE
-                || i > (g_dt.long_l * TILE)|| y > (g_dt.nbr_lines * TILE) )
+            if (i < 0 || i > g_dt.rsltn_w || y < 0 || y > g_dt.rsltn_h
+                || i > (g_dt.rsltn_w)|| y > g_dt.rsltn_h )
                 
                 break;
                 
-            if (((g_dt.size_l * (g_dt.nbr_lines * TILE)) / 4) > (y * (g_dt.long_l * TILE) + i))
-                g_dt.addrmlx[y * (g_dt.long_l * TILE) + i] = 0xFFFFFF;
+            if (((g_dt.size_l * g_dt.rsltn_h) / 4) > (y * (g_dt.rsltn_w) + i))
+                g_dt.addrmlx[y * (g_dt.rsltn_w) + i] = 0xFFFFFF;
             y++;
         }
         i++;
@@ -90,70 +90,16 @@ void    calc_render3d(t_dt *dt, t_mv *mv, int *i, int *j)
         *j = 2;
 }
 
-void    render_sprite(t_dt *dt, t_list **list)
-{
-    int start;
-    int x_offs;
-    int y_offs;
-    int y;
-    int d;
-    t_list *disp;
-
-    
-    disp = *list;
-    start = disp->sp.width_s;
-    while (start < disp->sp.width_e && disp->sp.width_s < (g_dt.long_l * TILE))
-    {
-        x_offs = ((64 * (start - disp->sp.width_s) * TILE / disp->sp.height) / 64);
-        y = disp->sp.height_s;
-        if (start >= 0 && start <= (g_dt.long_l * 64)  && disp->sp.dist_plyr_sp < dt[start].distance)
-        {
-            while (y < disp->sp.height_e)
-            {
-                d = y + (disp->sp.height / 2) - ((g_dt.nbr_lines * TILE) / 2);
-                y_offs = d * ((TILE * 1.0) / disp->sp.height);
-                    g_dt.color = (int)(g_txt.sprite_txt[(int)(64 * y_offs + x_offs)]);
-                    if (g_dt.color != 0)
-                        g_dt.addrmlx[y * (g_dt.long_l * TILE) + start] = g_dt.color;
-                y++;
-            }
-        }
-        start++;
-    }
-}
 
 
 void    draw_sprite(t_list **list, t_dt *dt)
 {
-    int i;
     t_list *disp;
 
     disp = *list;
-    // i = 0;
     while (disp)
     {
-        render_sprite(dt, &disp);
+        render_one_sprite(dt, &disp);
         disp = disp->next;
     }
 }
-
-// void	draw_sprite(t_player plr, t_data info)
-// {
-// 	t_sprite	sprt;
-// 	t_crd		*sprites;
-
-// 	sprites = (t_crd *)malloc(sizeof(t_crd) * g_sprite_num);
-// 	store_sprite_position(sprites, info);
-// 	initial_sprite_properties(sprites, plr);
-// 	sort_sprites(&sprites);
-// 	sprt.i = 0;
-// 	while (sprt.i < g_sprite_num)
-// 	{
-// 		calc_sprite_info(&sprt, plr, info, sprites);
-// 		draw_sprite_texture(sprt, info, sprt.i);
-// 		sprt.i++;
-// 	}
-// 	free(g_sprite_distance);
-// 	free(g_wall_distance);
-// 	free(sprites);
-// }

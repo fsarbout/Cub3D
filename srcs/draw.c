@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:55:41 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/09 18:03:46 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/11 10:45:49 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void   mlxs()
 
     param = NULL;
     g_dt.window = mlx_new_window(g_dt.mlx, g_dt.rsltn_w, g_dt.rsltn_h, "Hello!");
-    g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.long_l * TILE, g_dt.nbr_lines * TILE);
+    g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.rsltn_w , g_dt.rsltn_h);
 	g_dt.addrmlx = (int*)mlx_get_data_addr(g_dt.imgmlx, &g_dt.bpp, &g_dt.size_l,
                                  &g_dt.endian);
     update();
@@ -26,7 +26,6 @@ void   mlxs()
     // mlx_loop_hook(g_dt.mlx ,hooking, param);
     hooking(param);
     mlx_loop(g_dt.mlx);
-    
 }
 
 void        draw_map()
@@ -71,7 +70,7 @@ void    rect(int tilex, int tiley, int color)
     {
         while (tilex < x)
         {
-             g_dt.addrmlx[tiley * (g_dt.long_l * TILE) + tilex] = color;
+             g_dt.addrmlx[tiley * g_dt.rsltn_w + tilex] = color;
             tilex++;
         }
         tilex -= TILE -1;
@@ -128,7 +127,7 @@ void        draw_circle(int color)
             angle = i * RAD; 
             x = (int)(g_dt.pos_x + (r * cos(angle))) * MINIM;
             y = (int)(g_dt.pos_y + (r * sin(angle))) * MINIM;
-            g_dt.addrmlx[y * (g_dt.long_l * TILE) + x] = color;
+            g_dt.addrmlx[y * g_dt.rsltn_w + x] = color;
             i++;
         }
     r++;
@@ -145,11 +144,11 @@ void        draw_circle(int color)
   
   while (1)
   {  
-    if ((int)x0 < 0 || (int)x0 > g_dt.rsltn_w * TILE || (int)y0 < 0 || (int)y0 > g_dt.rsltn_h  * TILE
-        || (int)x0 > g_dt.long_l * TILE || (int)y0 > g_dt.nbr_lines * TILE)
+    if ((int)x0 < 0 || (int)x0 > g_dt.rsltn_w * TILE || (int)y0 < 0 || (int)y0 > g_dt.rsltn_h
+        || (int)x0 > g_dt.rsltn_w || (int)y0 > g_dt.rsltn_h)
         break;
         
-    g_dt.addrmlx[((int)(y0) * (g_dt.long_l * TILE) + (int)(x0))] = 0x0CFCD0;
+    g_dt.addrmlx[((int)(y0) * g_dt.rsltn_w + (int)(x0))] = 0x0CFCD0;
     if (x0 == x1 && y0 == y1) break;
     e2 = 2 * err;
     if (e2 >= dy) { err += dy; x0 += sx; }

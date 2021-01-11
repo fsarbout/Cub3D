@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:37:57 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/10 19:28:18 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/11 10:59:29 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void    update()
     
     mlx_destroy_image(g_dt.mlx, g_dt.imgmlx);
     // mlx_clear_window(g_dt.mlx, g_dt.window);
-    g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.long_l * TILE, g_dt.nbr_lines * TILE);
+    
+    g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.rsltn_w , g_dt.rsltn_h);
 	g_dt.addrmlx = (int*)mlx_get_data_addr(g_dt.imgmlx, &g_dt.bpp, &g_dt.size_l,
                                  &g_dt.endian);       
     move_playeer();
@@ -94,19 +95,12 @@ void    update()
     cast_rays(dt,mv, &list);
     if (list)
     {
-         sort_list(list);
+        sort_list(list);
         draw_sprite(&list , dt);
-        // render_sprite(dt,&list);
-        // draw_sprites(dt, &list);
     } 
     clear_list(&list);
     mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0); 
 }
-
-
-
-
-
 
 void    move_playeer()
 {
@@ -135,9 +129,13 @@ int     hit_wall(float x, float y)
 {
     int mapx;
     int mapy;
-    if (x < 0 || x >= (g_dt.long_l * TILE)|| y < 0 || (y >= g_dt.nbr_lines * TILE))
+    if (x < 0 || x >= g_dt.rsltn_w || y < 0 || (y >= g_dt.rsltn_h))
+        return (1);
+    if (x < 0 || x >= (g_dt.long_l * TILE) || y < 0 
+        || (y >= (g_dt.nbr_lines * TILE)))
         return (1);
     mapx = floor(x / TILE);
     mapy = floor(y / TILE);
+   
     return (g_dt.mmp[mapy][mapx]);
 }

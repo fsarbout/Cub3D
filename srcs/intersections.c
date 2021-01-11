@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:39:30 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/10 11:01:01 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/11 10:35:56 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ void    horizontal_inter(float xstep, float ystep , t_list **list)
 
 void    horizontal_loop(float xstep,float ystep , t_list **list)
 {    
-    while (g_dt.nxthorhitx >= 0 && g_dt.nxthorhitx <= (g_dt.long_l * TILE)  
-        && g_dt.nxthorhity >= 0 && g_dt.nxthorhity <= (g_dt.nbr_lines * TILE))
+    while (g_dt.nxthorhitx >= 0 && g_dt.nxthorhitx <= g_dt.rsltn_w  
+        && g_dt.nxthorhity >= 0 && g_dt.nxthorhity <= g_dt.rsltn_h)
     {
-        
         g_dt.checkx = g_dt.nxthorhitx;
         g_dt.checky = g_dt.nxthorhity + (g_mv.rayup ? -1 : 0 );
 
@@ -78,8 +77,8 @@ void    vertical_inter(float xstep, float ystep, t_list 	**list)
 
 void    	vertical_loop(float xstep,float ystep, t_list **list)
 {
-    while (g_dt.nxtvrthitx >= 0 && g_dt.nxtvrthitx <= (g_dt.long_l * TILE)  
-        && g_dt.nxtvrthity >= 0 && g_dt.nxtvrthity <= (g_dt.nbr_lines * TILE))
+    while (g_dt.nxtvrthitx >= 0 && g_dt.nxtvrthitx <= g_dt.rsltn_w  
+        && g_dt.nxtvrthity >= 0 && g_dt.nxtvrthity <= g_dt.rsltn_h)
     {
         
         g_dt.checkx = g_dt.nxtvrthitx + (g_mv.rayleft ? -1 :0);
@@ -100,4 +99,3 @@ void    	vertical_loop(float xstep,float ystep, t_list **list)
         }
     }
 }
-
