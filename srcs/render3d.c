@@ -6,18 +6,18 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 06:26:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/12 12:11:21 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/11 19:40:29 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
  
-void    render3d(t_dt *dt)
+void    render3d(t_dt *dt,t_list **list)
 {
     int i;
     int y;
     int j;
-    
+
     j = 7;
     i = 0;
          
@@ -29,6 +29,7 @@ void    render3d(t_dt *dt)
     g_dt.distpplane = ((g_dt.rsltn_w) / 2) / tan(FOV / 2);
     while (i < g_dt.numrays)
     {
+        calc_render3d(dt, &i, &j);
         y = 0;
         while (y < g_dt.walltop)/////ceilling
         {
@@ -65,7 +66,6 @@ void    render3d(t_dt *dt)
             y++;
         }
         i++;
-        render_sp(i);
     }
 }
 

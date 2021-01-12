@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 06:14:27 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/12 12:49:13 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/12 19:33:42 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@ void    treat_sprite(char **element_data)
     g_txt.sprite_txt = (int*)mlx_get_data_addr(g_txt.sp_txt, &g_dt.bpp, &g_dt.size_line, &g_dt.endian);
 }
 
-void    sprite_calc(/* t_list **list,  */t_dt *dt, int i)
+void    sprite_calc(t_list **list, t_dt *dt, int i)
 {
     t_sp sp;
     // float plyr_angle;
-    float rays;
-    
+    // float rays;
+    // t_list *idk;
+    // float dist;
+    // dist = calculate_dist(g_dt.checkx,g_dt.checky);
+    /***************/
     sp.x = g_dt.checkx;
     sp.y = g_dt.checky;
     sp.center = get_center_coor(sp.x, sp.y);
@@ -37,11 +40,12 @@ void    sprite_calc(/* t_list **list,  */t_dt *dt, int i)
     sp.points_center_y = g_dt.pos_y + (sin(dt[i].rayangle) * sp.dist_plyr_sp_c);
     
     sp.angle = atan2((sp.center.y - g_dt.pos_y) , (sp.center.x - g_dt.pos_x));
-    // lst_add_back(list, sp);
-    g_sprite[i] = sp; 
+    // if (!check_exists(*list, sp.center.x, sp.center.y))
+        lst_add_back(list, sp);
+
 }
 
-void    render_one_sprite(t_dt *dt, int i)
+void    render_one_sprite(t_list **list ,t_dt *dt, int id)
 {
     int offs_x;
     int offs_y;
@@ -53,8 +57,7 @@ void    render_one_sprite(t_dt *dt, int i)
     float bottom;
     int dist_from_top;
     int color;
-
-    i = 0;
+    
     if (dt[i].spr)
     {
         g_dt.distpplane = (g_dt.rsltn_w / 2) / tan(FOV / 2);
@@ -66,7 +69,7 @@ void    render_one_sprite(t_dt *dt, int i)
         
         bottom = (g_dt.rsltn_h / 2) + (strip_height / 2);
         bottom = bottom > g_dt.rsltn_h ?  g_dt.rsltn_h : bottom;
-        offs_x = calc_sp(g_sprite[i], i, dt);
+        offs_x = calc_sp(dt[i].sprt, i, dt);
         y = top;
         if (offs_x >= 0 && offs_x < TILE)
         {
@@ -153,6 +156,39 @@ float distance_2pts(int x1, int y1, int x2 , int y2)
 {
     return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
+
+
+void    render_one_sprite(t_dt *dt, t_list **list)
+{
+    int offs_x;
+    int offs_y;
+    int i;
+    float projectheight;
+    float strip_height;
+    float strip_top;
+    
+    i = 0;
+    while (i < g_dt.numrays)
+    {
+        g_dt.distpplane = (g_dt.rsltn_w / 2) / tan(FOV / 2);
+        g_dt.perpdist = dt[i].distance * cos(dt[i].rayangle - g_dt.plyr_angl);
+        projectheight = (TILE/ g_dt.perpdist) * g_dt.distpplane;
+        strip_height = (int)projectheight;
+        strip_top
+        
+        
+        
+        
+        
+        
+        
+
+
+    }
+
+
+}
+
 
 
 

@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 11:37:07 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/11 10:07:58 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/12 17:52:39 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,13 @@ float		normalize_sp_angle(float angle)
 	if (angle - (g_dt.plyr_angl - (FOV / 2)) > M_PI)
 		angle = angle - 2 * M_PI;
     return (angle);
+}
+
+void    render_sprites(t_dt *dt ,float checkx,float checky, int i)
+{
+    if (!dt[i].sprt)
+    {
+        
+    }
+
 }
