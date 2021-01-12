@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:37:57 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/11 19:34:45 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/12 11:30:29 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int    hooking(void *param)
     mlx_hook(g_dt.window, 2, 1L<<0,  keypressed, param);
     mlx_hook(g_dt.window, 3, 1L<<1, keyreleased, param);
     mlx_hook(g_dt.window, 17, 0L , exiit, param);
+    
     // g_dt.key = 3;
     update();
     return (1); 
@@ -80,7 +81,7 @@ void    update()
     t_list *list;
 
     list = NULL;
-    
+    g_sprite = malloc(sizeof(t_sp) * g_dt.numrays);
     mlx_destroy_image(g_dt.mlx, g_dt.imgmlx);
     // mlx_clear_window(g_dt.mlx, g_dt.window);
     
@@ -88,17 +89,18 @@ void    update()
 	g_dt.addrmlx = (int*)mlx_get_data_addr(g_dt.imgmlx, &g_dt.bpp, &g_dt.size_l,
                                  &g_dt.endian);       
     move_playeer();
-    cast_rays(dt, &list);
-    render3d(dt,&list);
+    cast_rays(dt);
+    render3d(dt);
     draw_map();
-    cast_rays(dt,&list);
+    cast_rays(dt);
     if (list)
     {
         sort_list(list);
-        draw_sprite(&list , dt);
+        draw_sprite( dt);
     }
     clear_list(&list);
     mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0); 
+    free(g_sprite);
 }
 
 void    move_playeer()

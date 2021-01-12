@@ -6,13 +6,13 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:39:30 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/11 19:34:14 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/12 11:28:13 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void    horizontal_inter(t_list **list, t_dt *dt, int i)
+void    horizontal_inter(t_dt *dt, int i)
 {   
     g_dt.hhitdis = 0;
     g_dt.horwllhitx = 0;
@@ -28,10 +28,10 @@ void    horizontal_inter(t_list **list, t_dt *dt, int i)
     g_dt.xstep *= (g_dt.rayright && g_dt.xstep < 0) ? -1 : 1;
     g_dt.nxthorhitx = g_dt.interx;
     g_dt.nxthorhity = g_dt.intery;
-    horizontal_loop(list , dt, i);   
+    horizontal_loop( dt, i);   
 }
 
-void    horizontal_loop(t_list **list, t_dt *dt, int i )
+void    horizontal_loop(t_dt *dt, int i )
 {    
     while (g_dt.nxthorhitx >= 0 && g_dt.nxthorhitx <= g_dt.rsltn_w  
         && g_dt.nxthorhity >= 0 && g_dt.nxthorhity <= g_dt.rsltn_h)
@@ -41,7 +41,7 @@ void    horizontal_loop(t_list **list, t_dt *dt, int i )
         /////
         if (hit_wall(g_dt.checkx, g_dt.checky) == '2')
         {
-            // dt[i].spr = 1;
+            dt[i].spr = 1;
             // g_dt.sp_hitx = g_dt.checkx;
             // g_dt.sp_hity = g_dt.checky;
             sprite_calc(list, dt , i);
@@ -61,7 +61,7 @@ void    horizontal_loop(t_list **list, t_dt *dt, int i )
     }
 }
 
-void    vertical_inter(t_list **list,  t_dt *dt, int i)
+void    vertical_inter(t_dt *dt, int i)
 {
     g_dt.verwllhitx = 0;
     g_dt.verwllhity = 0;
@@ -80,7 +80,7 @@ void    vertical_inter(t_list **list,  t_dt *dt, int i)
     vertical_loop(list, dt, i);
 }
 
-void    	vertical_loop(t_list **list, t_dt *dt, int i)
+void    	vertical_loop(t_dt *dt, int i)
 {
     while (g_dt.nxtvrthitx >= 0 && g_dt.nxtvrthitx <= g_dt.rsltn_w  
         && g_dt.nxtvrthity >= 0 && g_dt.nxtvrthity <= g_dt.rsltn_h)
@@ -90,10 +90,11 @@ void    	vertical_loop(t_list **list, t_dt *dt, int i)
         g_dt.checky = g_dt.nxtvrthity ;
         if (hit_wall(g_dt.checkx, g_dt.checky) == '2')
         {
-            // dt[i].spr = 1;
+            dt[i].verthit = 1;
+            dt[i].spr = 1;
             // g_dt.sp_hitx = g_dt.checkx;
             // g_dt.sp_hity = g_dt.checky;
-             sprite_calc(list, dt , i);
+             sprite_calc(dt , i);
         }
         if (hit_wall(g_dt.checkx, g_dt.checky) == '1')
         {

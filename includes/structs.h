@@ -2,6 +2,7 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+t_sp *g_sprite;
 
 typedef struct s_dt
 {
@@ -93,7 +94,7 @@ typedef struct s_dt
 	int 	rayright; 
 	float 	raydist;
 	float 	rayangle;
-
+	t_list 	*list_sp;
 }			t_dt;
 
 // typedef struct  s_mv
@@ -155,11 +156,11 @@ typedef struct s_sp
 
 }	t_sp;
 
-typedef struct	s_list
-{
-	t_sp 	sp;
-	struct	s_list *next;
-}				t_list;
+// typedef struct	s_list
+// {
+// 	t_sp 	sp;
+// 	struct	s_list *next;
+// }				t_list;
 
 t_txt 	g_txt;
 t_dt	g_dt;
