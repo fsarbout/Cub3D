@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:29:51 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/12 12:01:57 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/10 19:30:40 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void clear_list(t_list **lst)
     }
 }
 
-void    sort_list(t_sp spr, int i)
+void    sort_list(t_list *lst)
 {
     t_list      *inside;
     t_sp        sprite;
@@ -67,7 +67,7 @@ void    sort_list(t_sp spr, int i)
     }
 }
 
-void  lst_add_back(t_sp spr, int i)
+void  lst_add_back(t_list **head, t_sp spr)
 {
     t_list *node = malloc(sizeof(t_list));
     t_list *lastnode;

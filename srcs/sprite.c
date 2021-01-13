@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 06:14:27 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/12 19:33:42 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/13 12:32:50 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,187 +21,47 @@ void    treat_sprite(char **element_data)
     g_txt.sprite_txt = (int*)mlx_get_data_addr(g_txt.sp_txt, &g_dt.bpp, &g_dt.size_line, &g_dt.endian);
 }
 
-void    sprite_calc(t_list **list, t_dt *dt, int i)
+void    sprite_calc(t_list **list)
 {
-    t_sp sp;
-    // float plyr_angle;
-    // float rays;
-    // t_list *idk;
-    // float dist;
-    // dist = calculate_dist(g_dt.checkx,g_dt.checky);
-    /***************/
+     t_sp sp;
+     float plyr_angle;
+    float rays;
+    
     sp.x = g_dt.checkx;
     sp.y = g_dt.checky;
     sp.center = get_center_coor(sp.x, sp.y);
-    sp.dist_plyr_sp = calculate_dist(sp.x, sp.y);
-    sp.dist_plyr_sp_c = calculate_dist(sp.center.x, sp.center.y);
-    /*   all points of player circle which hit sprite */
-    sp.points_center_x = g_dt.pos_x + (cos(dt[i].rayangle) * sp.dist_plyr_sp_c);
-    sp.points_center_y = g_dt.pos_y + (sin(dt[i].rayangle) * sp.dist_plyr_sp_c);
-    
+    sp.dist_plyr_sp = calculate_dist(sp.center.x, sp.center.y);
+    /////////////////////////////////////////////////////////
     sp.angle = atan2((sp.center.y - g_dt.pos_y) , (sp.center.x - g_dt.pos_x));
-    // if (!check_exists(*list, sp.center.x, sp.center.y))
-        lst_add_back(list, sp);
-
-}
-
-void    render_one_sprite(t_list **list ,t_dt *dt, int id)
-{
-    int offs_x;
-    int offs_y;
-    int j;   //b
-    int y;      
-    float projectheight;
-    float strip_height;
-    float top;
-    float bottom;
-    int dist_from_top;
-    int color;
+    plyr_angle = g_dt.plyr_angl - (FOV / 2);
+    // printf("%f  %f\n", plyr_angle, sp.angle);
+    sp.angle = sp.angle - plyr_angle;
+    //////
+     if (sp.angle > (180 * RAD))
+        sp.angle -= (360 * RAD);
+    else if (sp.angle < (-180 * RAD))
+        sp.angle += (360 * RAD);
     
-    if (dt[i].spr)
-    {
-        g_dt.distpplane = (g_dt.rsltn_w / 2) / tan(FOV / 2);
-        g_dt.perpdist = dt[i].distance * cos(dt[i].rayangle - g_dt.plyr_angl);
-        projectheight = (TILE/ g_dt.perpdist) * g_dt.distpplane;
-        strip_height = (int)projectheight;
-        top = (g_dt.rsltn_h / 2) - (strip_height / 2);
-        top = top < 0 ?  0 : top;
-        
-        bottom = (g_dt.rsltn_h / 2) + (strip_height / 2);
-        bottom = bottom > g_dt.rsltn_h ?  g_dt.rsltn_h : bottom;
-        offs_x = calc_sp(dt[i].sprt, i, dt);
-        y = top;
-        if (offs_x >= 0 && offs_x < TILE)
-        {
-            while (y < top)
-            {
-                dist_from_top = y + (strip_height / 2) - (g_dt.rsltn_h / 2);
-                offs_y = dist_from_top * ((float)64 / strip_height);
-                color = (int)(g_txt.sprite_txt[(int)(64 * offs_y + offs_x)]);
-                if (color)
-                    g_dt.addrmlx[(g_dt.rsltn_w * y) + i] = color;
-                y++;                
-            }
-        }
-    }
+    // sp.angle = normalize_angle(normalize_sp_angle(sp.angle));
+    ////////////////////////////////////////////////////////////////////////
+    g_dt.distpplane = (g_dt.rsltn_w / 2) / tan(FOV / 2);
+    ////////////////////////////////////////////////////////////////////////
+    sp.height = (TILE / sp.dist_plyr_sp) * g_dt.distpplane ;
+    sp.height_s = -sp.height / 2 + (g_dt.rsltn_h) / 2;
+    sp.height_s = sp.height_s < 0 ? 0 : sp.height_s;
+    sp.height_e = sp.height / 2 +(g_dt.rsltn_h) / 2;
+    sp.height_e = sp.height_e  > (g_dt.rsltn_h) ? (g_dt.rsltn_h) - 1 : sp.height_e;
+    ////////////////////////////////////////////////////////////////////////
+    rays = (FOV / g_dt.rsltn_w) ;
+    sp.width_s = (sp.angle / rays) - (sp.height / 2);
+    // sp.width_s = (sp.angle / rays);
+    
+    sp.width_e = sp.width_s + sp.height;
+    if (!check_exists(*list, sp.center.x, sp.center.y))
+        lst_add_back(list, sp);
 }
-
-int     calc_sp(t_sp sp, int i, t_dt *dt)
-{
-    int dist;
-    int offs_x;
-    //first
-    if (g_dt.pos_y >= sp.center.y - 32 && g_dt.pos_y <= sp.center.y + 32 && dt[i].rayleft)
-    {
-        if (sp.points_center_y > sp.center.y)
-        {
-            dist = distance_2pts(sp.points_center_x, sp.points_center_y, sp.center.x ,sp.center.y);
-            offs_x = 32 - dist;
-        }
-        else
-        {
-            dist = distance_2pts(sp.points_center_x, sp.points_center_y, sp.center.x ,sp.center.y);
-            offs_x = 32 + dist;
-        }    
-    }
-    //2
-    else if(g_dt.pos_y >= sp.center.x - 32 && g_dt.pos_y <= sp.center.y + 32)
-    {
-        if (sp.points_center_y < sp.center.y)
-        {
-             dist = distance_2pts(sp.points_center_x, sp.points_center_y, sp.center.x ,sp.center.y);
-              offs_x = 32 - dist;
-        }
-        else
-        {
-             dist = distance_2pts(sp.points_center_x, sp.points_center_y, sp.center.x ,sp.center.y);
-              offs_x = 32 + dist;
-        } 
-            
-    }
-    //3
-     else if(dt[i].rayup)
-    {
-        if (sp.points_center_x > sp.center.x)
-        {
-             dist = distance_2pts(sp.points_center_x, sp.points_center_y, sp.center.x ,sp.center.y);
-              offs_x = 32 + dist;
-        }
-        else
-        {
-             dist = distance_2pts(sp.points_center_x, sp.points_center_y, sp.center.x ,sp.center.y);
-             offs_x = 32 - dist;
-        }
-            
-    }
-    //4
-     else if(dt[i].raydown)
-    {
-        if (sp.points_center_x > sp.center.x)
-        {
-             dist = distance_2pts(sp.points_center_x, sp.points_center_y, sp.center.x ,sp.center.y);
-             dist = 32 - dist;
-        }
-        else
-        {
-             dist = distance_2pts(sp.points_center_x, sp.points_center_y, sp.center.x ,sp.center.y);
-             offs_x = 32 + dist;
-        } 
-            
-    }
-    return offs_x;
-}
-
-float distance_2pts(int x1, int y1, int x2 , int y2)
-{
-    return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
-}
-
 
 void    render_one_sprite(t_dt *dt, t_list **list)
-{
-    int offs_x;
-    int offs_y;
-    int i;
-    float projectheight;
-    float strip_height;
-    float strip_top;
-    
-    i = 0;
-    while (i < g_dt.numrays)
-    {
-        g_dt.distpplane = (g_dt.rsltn_w / 2) / tan(FOV / 2);
-        g_dt.perpdist = dt[i].distance * cos(dt[i].rayangle - g_dt.plyr_angl);
-        projectheight = (TILE/ g_dt.perpdist) * g_dt.distpplane;
-        strip_height = (int)projectheight;
-        strip_top
-        
-        
-        
-        
-        
-        
-        
-
-
-    }
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
- 
-/* void    render_one_sprite(t_dt *dt, t_list **list)
 {
     int start;
     int x_offs;
@@ -233,4 +93,4 @@ void    render_one_sprite(t_dt *dt, t_list **list)
         }
         start++;
     }
-} */
+}

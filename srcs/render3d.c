@@ -6,13 +6,13 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 06:26:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/11 19:40:29 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/11 10:49:46 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
  
-void    render3d(t_dt *dt,t_list **list)
+void    render3d(t_dt *dt, t_mv *mv, t_list **list)
 {
     int i;
     int y;
@@ -29,7 +29,7 @@ void    render3d(t_dt *dt,t_list **list)
     g_dt.distpplane = ((g_dt.rsltn_w) / 2) / tan(FOV / 2);
     while (i < g_dt.numrays)
     {
-        calc_render3d(dt, &i, &j);
+        calc_render3d(dt, mv, &i, &j);
         y = 0;
         while (y < g_dt.walltop)/////ceilling
         {
@@ -69,24 +69,24 @@ void    render3d(t_dt *dt,t_list **list)
     }
 }
 
-void    calc_render3d(t_dt *dt, int *i, int *j)
+void    calc_render3d(t_dt *dt, t_mv *mv, int *i, int *j)
 {
     g_txt.txt_offsetx = dt[*i].verthit ? (int)dt[*i].wallhity % 64 
        : (int)dt[*i].wallhitx % 64; //scale the size of wall
-    g_dt.perpdist = dt[*i].distance * cos(dt[*i].rayangle - g_dt.plyr_angl);
+    g_dt.perpdist = dt[*i].distance * cos(mv[*i].rayangle - g_dt.plyr_angl);
     g_dt.prjctwallheight = (TILE/ g_dt.perpdist) * g_dt.distpplane;// camera plane
     g_dt.wallstripheight = (int)g_dt.prjctwallheight; //also forgoten
     g_dt.walltop = ((g_dt.rsltn_h) / 2) - (g_dt.wallstripheight / 2);
     g_dt.walltop = g_dt.walltop < 0 ? 0 : g_dt.walltop;
     g_dt.wallbttm = ((g_dt.rsltn_h) / 2) + (g_dt.wallstripheight /2);
     g_dt.wallbttm = g_dt.wallbttm > (g_dt.rsltn_h) ? (g_dt.rsltn_h) : g_dt.wallbttm;
-    if (dt[*i].rayup && !dt[*i].verthit)
+    if (mv[*i].rayup && !dt[*i].verthit)
         *j = 1;
-    if (!dt[*i].rayup && !dt[*i].verthit)
+    if (!mv[*i].rayup && !dt[*i].verthit)
         *j = 0;
-    if (dt[*i].rayright && dt[*i].verthit)
+    if (mv[*i].rayright && dt[*i].verthit)
         *j = 3;
-    if (!dt[*i].rayright && dt[*i].verthit)
+    if (!mv[*i].rayright && dt[*i].verthit)
         *j = 2;
 }
 
