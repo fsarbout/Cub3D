@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 09:00:09 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/11/26 14:19:35 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:53:24 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		ft_putchar(char c);
 void		ft_putendl_fd(char *s, int fd);
 int		    ft_putnbr(int n);
 void		ft_putstr(char *s);
-char		*ft_strchr(const char *s, int c);
+char		ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
@@ -62,15 +62,7 @@ size_t		ft_strlcpy1(char *dst, const char *src, size_t size);
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-/*
-# include <stddef.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/uio.h>*/
+
 
 # define BUFFER_SIZE 37
 

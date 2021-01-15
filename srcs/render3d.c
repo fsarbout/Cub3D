@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 06:26:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/11 10:49:46 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/15 18:45:53 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void    render3d(t_dt *dt, t_mv *mv, t_list **list)
          
     g_txt.addr_txt[0] = (int*)mlx_get_data_addr(g_txt.no_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
     g_txt.addr_txt[2] = (int*)mlx_get_data_addr(g_txt.so_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
-    g_txt.addr_txt[3] = (int*)mlx_get_data_addr(g_txt.we_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
-    g_txt.addr_txt[1] = (int*)mlx_get_data_addr(g_txt.ea_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
+    g_txt.addr_txt[1] = (int*)mlx_get_data_addr(g_txt.we_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
+    g_txt.addr_txt[3] = (int*)mlx_get_data_addr(g_txt.ea_txt ,&g_dt.bpp, &g_dt.size_line , &g_dt.endian);
     
     g_dt.distpplane = ((g_dt.rsltn_w) / 2) / tan(FOV / 2);
     while (i < g_dt.numrays)
@@ -80,14 +80,14 @@ void    calc_render3d(t_dt *dt, t_mv *mv, int *i, int *j)
     g_dt.walltop = g_dt.walltop < 0 ? 0 : g_dt.walltop;
     g_dt.wallbttm = ((g_dt.rsltn_h) / 2) + (g_dt.wallstripheight /2);
     g_dt.wallbttm = g_dt.wallbttm > (g_dt.rsltn_h) ? (g_dt.rsltn_h) : g_dt.wallbttm;
-    if (mv[*i].rayup && !dt[*i].verthit)
-        *j = 1;
-    if (!mv[*i].rayup && !dt[*i].verthit)
+    if (mv[*i].rayup && !dt[*i].verthit) //north
         *j = 0;
-    if (mv[*i].rayright && dt[*i].verthit)
-        *j = 3;
-    if (!mv[*i].rayright && dt[*i].verthit)
+    if (!mv[*i].rayup && !dt[*i].verthit) //south
         *j = 2;
+    if (mv[*i].rayright && dt[*i].verthit) // east
+        *j = 3;
+    if (!mv[*i].rayright && dt[*i].verthit) //weast
+        *j = 1;
 }
 
 

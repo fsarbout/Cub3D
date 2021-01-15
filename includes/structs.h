@@ -75,6 +75,8 @@ typedef struct s_dt
 	/////////////////////////////
 	float 	angle_plyr;
 	int 	nb_sprite;
+	float 	xstep;
+	float 	ystep;
 }			t_dt;
 
 

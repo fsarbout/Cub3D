@@ -1,22 +1,17 @@
+SO ./textures/1.xpm
+NO ./textures/4.xpm
 
-
-
-SO ./textures/south.xpm
-
-
-NO ./textures/north.xpm
-
-C 225,30,0
+C 68,,15,15
 
 F  250,100,0
 
-S ./textures/armor.xpm
+S ./textures/brmil.xpm
 
-R 2200 900
+R 1400 2500
 
-WE ./textures/west.xpm
+WE ./textures/6.xpm
 
-EA ./textures/east.xpm
+EA ./textures/7.xpm
 
         1111111111111111111111111
         1000200000112000020000001

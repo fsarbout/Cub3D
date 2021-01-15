@@ -13,6 +13,7 @@
 # define WALL_S_W 0.5
 # define MINIM 0.3
 # define RAD (M_PI / 180)
+# define BIG_NUM 9999999999.0
 
 #if __APPLE__
     # define UP 13

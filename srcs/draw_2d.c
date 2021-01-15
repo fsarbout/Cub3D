@@ -6,27 +6,11 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 17:55:41 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/11 10:45:49 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/15 17:43:51 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void   mlxs()
-{
-    void *param;
-
-    param = NULL;
-    g_dt.window = mlx_new_window(g_dt.mlx, g_dt.rsltn_w, g_dt.rsltn_h, "Hello!");
-    g_dt.imgmlx  = mlx_new_image(g_dt.mlx, g_dt.rsltn_w , g_dt.rsltn_h);
-	g_dt.addrmlx = (int*)mlx_get_data_addr(g_dt.imgmlx, &g_dt.bpp, &g_dt.size_l,
-                                 &g_dt.endian);
-    update();
-    mlx_put_image_to_window(g_dt.mlx, g_dt.window, g_dt.imgmlx, 0, 0);
-    // mlx_loop_hook(g_dt.mlx ,hooking, param);
-    hooking(param);
-    mlx_loop(g_dt.mlx);
-}
 
 void        draw_map()
 {
@@ -38,10 +22,10 @@ void        draw_map()
 	y = 0;
     tilex = 0 ;
     tiley = 0 ;
-	while (y < g_dt.nbr_lines)
+	while (y < g_dt.nbr_lines && y < g_dt.rsltn_h)
     {
         x = 0;
-        while (x < g_dt.long_l)
+        while (x < g_dt.long_l && x < g_dt.rsltn_w)
         {
             tilex = x * TILE;
             tiley = y * TILE;
@@ -70,42 +54,14 @@ void    rect(int tilex, int tiley, int color)
     {
         while (tilex < x)
         {
-             g_dt.addrmlx[tiley * g_dt.rsltn_w + tilex] = color;
+            
+            g_dt.addrmlx[tiley * g_dt.rsltn_w + tilex] = color;
             tilex++;
         }
         tilex -= TILE -1;
         tiley++;
     }
 }
-
-// void        draw_circle_s(int xstart, int ystart)
-// {
-//     int     r;
-//     float   angle;
-//     int     i;
-//     int     x;
-//     int     y;
- 
-//     r = 1;
-//     i = 0;
-//     x = 0;
-//     y = 0;
-//     while(r < 5)
-//     {
-//         i = 0;
-//         while (i < 360)
-//         {
-//             angle = i * ( M_PI / 180); 
-//             x = (int)(xstart + (r * cos(angle))) * MINIM;
-//             y = (int)(ystart + (r * sin(angle))) * MINIM;
-//             g_dt.addrmlx[y * (g_dt.long_l * TILE) + x] = 0x33FF33;
-//             i++;
-//         }
-//     r++;
-//     }
-//  }
-
-
 
 void        draw_circle(int color)
 {
@@ -127,7 +83,8 @@ void        draw_circle(int color)
             angle = i * RAD; 
             x = (int)(g_dt.pos_x + (r * cos(angle))) * MINIM;
             y = (int)(g_dt.pos_y + (r * sin(angle))) * MINIM;
-            g_dt.addrmlx[y * g_dt.rsltn_w + x] = color;
+            if (x >= 0 && x < g_dt.rsltn_w && y >= 0 && y < g_dt.rsltn_h)
+                g_dt.addrmlx[y * g_dt.rsltn_w + x] = color;
             i++;
         }
     r++;
