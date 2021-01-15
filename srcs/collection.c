@@ -40,7 +40,7 @@ void    treat_flr(char **element_data)
     g_dt.flr_r = ft_atoi(rgb[0]);
     g_dt.flr_g = ft_atoi(rgb[1]);
     g_dt.flr_b = ft_atoi(rgb[2]);
-    g_dt.flr_color = create_trgb(0,g_dt.flr_r,g_dt.flr_g,g_dt.flr_b);.
+    g_dt.flr_color = create_trgb(0,g_dt.flr_r,g_dt.flr_g,g_dt.flr_b);
     if ((g_dt.flr_r < 0 || g_dt.flr_r > 255) 
         || (g_dt.flr_g < 0 || g_dt.flr_g > 255) 
             || (g_dt.flr_b < 0 || g_dt.flr_b > 255))
