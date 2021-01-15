@@ -91,12 +91,10 @@ size_t		ft_strlen(const char *s)
 
 char		*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
 	char	*sub;
 
 	if (!s)
 		return (NULL);
-	i = 0;
 	if (ft_strlen(s) <= start)
 		len = 0;
 	sub = (char*)malloc(sizeof(char) * (len + 1));

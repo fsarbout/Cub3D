@@ -77,6 +77,8 @@ typedef struct s_dt
 	int 	nb_sprite;
 	float 	xstep;
 	float 	ystep;
+	int 	cllng_color;
+	int 	flr_color;
 }			t_dt;
 
 

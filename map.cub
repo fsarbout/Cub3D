@@ -1,9 +1,9 @@
 SO ./textures/1.xpm
 NO ./textures/4.xpm
 
-C 68,,15,15
+C 200,150,06
 
-F  250,100,0
+F  250,100,40
 
 S ./textures/brmil.xpm
 

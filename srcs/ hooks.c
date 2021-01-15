@@ -12,16 +12,16 @@
 
 #include "../includes/cub3d.h"
 
-int    hooking(void *param)
+int    hooking()
 {
-    mlx_hook(g_dt.window, 2, 1L<<0,  keypressed, param);
-    mlx_hook(g_dt.window, 3, 1L<<1, keyreleased, param);
-    mlx_hook(g_dt.window, 17, 0L , exiit, param);
+    mlx_hook(g_dt.window, 2, 1L<<0,  keypressed, 0);
+    mlx_hook(g_dt.window, 3, 1L<<1, keyreleased, 0);
+    mlx_hook(g_dt.window, 17, 0L , exiit, 0);
     update();
     return (1); 
 }
 
-int    keypressed(int key, void *param)
+int    keypressed(int key)
 {
     if (key == DOWN)
         g_mv.walkdir = -1;
@@ -36,12 +36,12 @@ int    keypressed(int key, void *param)
     if (key == T_LEFT)
         g_mv.turndir = -1;
     if (key == ESC)
-         exiit(key,&param);
+         exiit();
     update();
     return (0);
 }
 
-int keyreleased(int key, void *param)
+int keyreleased(int key)
 {
     if (key == DOWN)
     if (key == DOWN)
@@ -57,7 +57,7 @@ int keyreleased(int key, void *param)
     if (key == T_LEFT)
             g_mv.turndir = 0;
     if (key == ESC)
-            exiit(key,&param);
+            exiit();
     update();
     return (0);
 }
@@ -76,7 +76,7 @@ void    update()
                                  &g_dt.endian);       
     move_playeer();
     cast_rays(dt,mv, &list);
-    render3d(dt,mv,&list);
+    render3d(dt,mv);
     // draw_map();
     // cast_rays(dt,mv, &list);
     if (list)
@@ -112,9 +112,8 @@ void    move_playeer()
     }
 }
 
-int exiit(int key, void *param)
+int exiit()
 {
-    param = NULL;
     mlx_destroy_window(g_dt.mlx, g_dt.window);
     exit(EXIT_SUCCESS);
     return (1);

@@ -12,14 +12,14 @@
 
 NAME = cub3D
 
-CC = gcc
+CC = gcc #-Wall -Wextra -Werror
 
 #mac compliation
-CFLAGS = -g -lmlx -framework OpenGL  -framework AppKit -fsanitize=address -o $(NAME)
+#CFLAGS = -g -lmlx -framework OpenGL  -framework AppKit -fsanitize=address -o $(NAME)
 
 
 #linux compilation
-#CFLAGS = -g -lm -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -fsanitize=address
+CFLAGS = -g -lm -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -fsanitize=address
 
 SRC =   ./srcs/*.c ./libft/*.c
 

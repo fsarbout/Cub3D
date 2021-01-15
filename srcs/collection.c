@@ -30,6 +30,8 @@ void    treat_flr(char **element_data)
     char **rgb;
 
     g_dt.f = 1;
+    if (commas(element_data[1]) != 2)
+        print_error("   commas problem rgb!\n");
     rgb = ft_split(element_data[1], ',');
     if (lenght(rgb) != 3)
         print_error("  wrong data in floor rgb values!\n");
@@ -38,6 +40,7 @@ void    treat_flr(char **element_data)
     g_dt.flr_r = ft_atoi(rgb[0]);
     g_dt.flr_g = ft_atoi(rgb[1]);
     g_dt.flr_b = ft_atoi(rgb[2]);
+    g_dt.flr_color = create_trgb(0,g_dt.flr_r,g_dt.flr_g,g_dt.flr_b);.
     if ((g_dt.flr_r < 0 || g_dt.flr_r > 255) 
         || (g_dt.flr_g < 0 || g_dt.flr_g > 255) 
             || (g_dt.flr_b < 0 || g_dt.flr_b > 255))
@@ -49,6 +52,8 @@ void    treat_cllng(char **element_data)
     char **rgb;
   
     g_dt.c = 1;
+    if (commas(element_data[1]) != 2)
+        print_error("   commas problem rgb!\n");
     rgb = ft_split(element_data[1], ',');
     if (lenght(rgb) != 3)
        print_error("  wrong data in ceilling rgb values!\n");
@@ -57,8 +62,32 @@ void    treat_cllng(char **element_data)
     g_dt.cllng_r = ft_atoi(rgb[0]);
     g_dt.cllng_g = ft_atoi(rgb[1]);
     g_dt.cllng_b = ft_atoi(rgb[2]);
+    g_dt.cllng_color = create_trgb(0,g_dt.cllng_r,g_dt.cllng_g,g_dt.cllng_b);
     if ((g_dt.cllng_r < 0 || g_dt.cllng_r > 255) 
         || (g_dt.cllng_g < 0 || g_dt.cllng_g > 255) 
             || (g_dt.cllng_b < 0 || g_dt.cllng_b > 255) )
        print_error("  wrong data in ceilling rgb values!\n");
+}
+
+int commas(char *ptr)
+{
+    int j;
+    int i;
+    char c;
+
+    c = ',';
+    i = 0;
+    j = 0;
+    while (ptr[i])
+    {
+        if (ptr[i] == c)
+            j++;
+        i++;
+    } 
+    return (j);
+}
+
+int		create_trgb(int t, int r, int g, int b)
+{
+	return(t << 24 | r << 16 | g << 8 | b);
 }

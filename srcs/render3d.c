@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
  
-void    render3d(t_dt *dt, t_mv *mv, t_list **list)
+void    render3d(t_dt *dt, t_mv *mv)
 {
     int i;
     int y;
@@ -37,7 +37,7 @@ void    render3d(t_dt *dt, t_mv *mv, t_list **list)
                 || i > g_dt.rsltn_w|| y > g_dt.rsltn_h)
                 break;
             if (((g_dt.size_l * g_dt.rsltn_h) / 4) > (y * (g_dt.rsltn_w) + i))
-                g_dt.addrmlx[y * (g_dt.rsltn_w) + i] = 0x808080;
+                g_dt.addrmlx[y * (g_dt.rsltn_w) + i] = g_dt.cllng_color;
             y++;
         }
         y = g_dt.walltop;
@@ -62,7 +62,7 @@ void    render3d(t_dt *dt, t_mv *mv, t_list **list)
                 break;
                 
             if (((g_dt.size_l * g_dt.rsltn_h) / 4) > (y * (g_dt.rsltn_w) + i))
-                g_dt.addrmlx[y * (g_dt.rsltn_w) + i] = 0xFFFFFF;
+                g_dt.addrmlx[y * (g_dt.rsltn_w) + i] = g_dt.flr_color;
             y++;
         }
         i++;
