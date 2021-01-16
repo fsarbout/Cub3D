@@ -17,11 +17,9 @@ void    treat_sprite(char **element_data)
     if (!(g_txt.sp_txt = (int*)mlx_xpm_file_to_image(g_dt.mlx, element_data[1]
         ,&g_dt.width, &g_dt.height)))
     {
-        freee(element_data);
         print_error("   path of sprite texture invlid!\n");
     }
     g_txt.sprite_txt = (int*)mlx_get_data_addr(g_txt.sp_txt, &g_dt.bpp, &g_dt.size_line, &g_dt.endian);
-    freee(element_data);
 }
 
 void    sprite_calc(t_list **list)

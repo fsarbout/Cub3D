@@ -12,7 +12,7 @@
 
 NAME = cub3D
 
-CC = gcc #-Wall -Wextra -Werror
+CC = gcc -g #-Wall -Wextra -Werror
 
 #mac compliation
 CFLAGS = ./libft/libft.a -lmlx -framework OpenGL  -framework AppKit -o $(NAME)

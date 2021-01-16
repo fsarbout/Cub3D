@@ -33,7 +33,6 @@ void    treat_rsltn(char **element_data)
     g_dt.rsltn_h = ft_atoi(element_data[2]);
     g_dt.rsltn_h > MAX_HEIGHT ? g_dt.rsltn_h =  MAX_HEIGHT : 0;
     }
-    freee(element_data);
 }
 
 void    treat_flr(char **element_data)
@@ -56,7 +55,7 @@ void    treat_flr(char **element_data)
         || (g_dt.flr_g < 0 || g_dt.flr_g > 255) 
             || (g_dt.flr_b < 0 || g_dt.flr_b > 255))
              print_error("  wrong data in floor rgb values!\n");
-    freee(element_data);
+    freee(rgb);
 }
 
 void    treat_cllng(char **element_data)
@@ -79,7 +78,7 @@ void    treat_cllng(char **element_data)
         || (g_dt.cllng_g < 0 || g_dt.cllng_g > 255) 
             || (g_dt.cllng_b < 0 || g_dt.cllng_b > 255) )
        print_error("  wrong data in ceilling rgb values!\n");
-    freee(element_data);
+    freee(rgb);
 }
 
 int commas(char *ptr)

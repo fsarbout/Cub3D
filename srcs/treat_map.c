@@ -28,6 +28,7 @@ void    check_map(char *mp)
     g_dt.mmp = NULL;
     fill_maplines(map);
     parse_map(map, i, j);
+    freee(map);
     if (g_dt.plyr   == 0)
         print_error("   missing player!\n");
 } 
@@ -64,7 +65,6 @@ void    parse_map(char **map, int i, int j)
         }
         i++; 
     }
-    free(map);
 }
 
 void    fill_maplines(char **map)
