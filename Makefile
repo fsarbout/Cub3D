@@ -15,11 +15,11 @@ NAME = cub3D
 CC = gcc -g #-Wall -Wextra -Werror
 
 #mac compliation
-CFLAGS = ./libft/libft.a -lmlx -framework OpenGL  -framework AppKit -o $(NAME)
+#CFLAGS = ./libft/libft.a -lmlx -framework OpenGL  -framework AppKit
 
 
 #linux compilation
-#CFLAGS = -g -lm -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -fsanitize=address
+CFLAGS = ./libft/libft.a -lm -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -fsanitize=address
 
 SRC =   ./srcs/*.c
 
@@ -28,7 +28,7 @@ all : $(NAME)
 
 $(NAME):
 	@cd libft && make re
-	@$(CC) $(SRC) $(CFLAGS)
+	@$(CC) $(SRC) $(CFLAGS) -o $(NAME)
 	
 clean:
 	@cd libft && make clean

@@ -83,16 +83,17 @@ void    fill_maplines(char **map)
         g_dt.nbr_lines--;
     }
     g_dt.nbr_lines = lenght(map);
-    g_dt.mmp = (char**)malloc(g_dt.nbr_lines * sizeof(g_dt.mmp));
+    g_dt.mmp = (char**)malloc((g_dt.nbr_lines  + 1) * sizeof(char *));
     if (!g_dt.mmp)
         print_error("   there is a problem in memory allocation!\n");
     i = 0;
     while (i < g_dt.nbr_lines)
     {
-        g_dt.mmp[i] = (char*)malloc(g_dt.long_l * sizeof(g_dt.mmp[i]));
+        g_dt.mmp[i] = (char*)malloc(g_dt.long_l * sizeof(char));
         ft_strlcpy1(g_dt.mmp[i], map[i] ,g_dt.long_l);
                 i++;
     }
+    g_dt.mmp[i] = NULL;
 }
 void    if_dif_one(char **map, int i, int j)
 {

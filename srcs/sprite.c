@@ -63,7 +63,7 @@ void    render_one_sprite(t_dt *dt, t_list **list)
     {
         g_dt.x_offs = ((64 * (start - disp->sp.width_s) * TILE / disp->sp.height) / 64);
         y = disp->sp.height_s;
-        if (start >= 0 && start <= g_dt.rsltn_w)
+        if (start >= 0 && start < g_dt.rsltn_w)
         {
             if (disp->sp.dist_plyr_sp < dt[start].distance)
             {

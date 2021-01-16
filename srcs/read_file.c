@@ -58,6 +58,7 @@ void    che_ck_map(int i, int fd, char *line, char *map)
         {
             if (j == 1)
                 print_error("   map separated or ended by  new line(s)!\n");
+            free(line);
             continue;
         }
 		pfree = map;
@@ -70,6 +71,7 @@ void    che_ck_map(int i, int fd, char *line, char *map)
 		free(line);
     }
     check_map(map);
+    free(map);
     printf("working well\n");
 }
 
