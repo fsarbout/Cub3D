@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 18:20:39 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/15 19:03:14 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:51:58 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ int main(int ac, char **av)
         printf("ERROR IN ARGUMENTS OF MAIN");
         return (0);
     }
-    // else
     collect_data(line, av);
     g_dt.numrays = g_dt.rsltn_w ;
     mlxs();
-   free (g_dt.mmp);
+    freee (g_dt.mmp);
     return (0);
 }
 

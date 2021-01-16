@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 10:29:51 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/15 17:49:10 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/16 09:44:04 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,9 @@ void  lst_add_back(t_list **head, t_sp spr)
         (*head)->next = node;
         *head = lastnode;
     }        
+}
+
+int		create_trgb(int t, int r, int g, int b)
+{
+	return(t << 24 | r << 16 | g << 8 | b);
 }

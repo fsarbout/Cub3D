@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fsarbout <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 16:40:08 by fsarbout          #+#    #+#              #
-#    Updated: 2019/11/05 22:11:47 by fsarbout         ###   ########.fr        #
+#    Updated: 2021/01/16 10:51:54 by fsarbout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,21 +46,22 @@ SRC = ft_atoi.c\
 	   ft_substr.c\
 	   ft_tolower.c\
 	   ft_toupper.c\
-	   ft_split.c
+	   ft_split.c\
+	   get_next_line.c
 
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME) 
 
 $(NAME):
-	$(CC)  -c $(SRC)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@$(CC)  -c $(SRC)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 clean:
-	rm -rf *.o
+	@rm -rf *.o
 
 fclean: clean
-	rm -rf $(NAME) 
+	@rm -rf $(NAME) 
 
 re: fclean all

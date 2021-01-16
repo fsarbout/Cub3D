@@ -6,26 +6,28 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 06:14:27 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/15 18:07:04 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:50:40 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-
-
 void    treat_sprite(char **element_data)
 {
     if (!(g_txt.sp_txt = (int*)mlx_xpm_file_to_image(g_dt.mlx, element_data[1]
         ,&g_dt.width, &g_dt.height)))
+    {
+        freee(element_data);
         print_error("   path of sprite texture invlid!\n");
+    }
     g_txt.sprite_txt = (int*)mlx_get_data_addr(g_txt.sp_txt, &g_dt.bpp, &g_dt.size_line, &g_dt.endian);
+    freee(element_data);
 }
 
 void    sprite_calc(t_list **list)
 {
-     t_sp sp;
-     float plyr_angle;
+    t_sp sp;
+    float plyr_angle;
     float rays;
     
     sp.x = g_dt.checkx;
@@ -35,10 +37,7 @@ void    sprite_calc(t_list **list)
     sp.angle = atan2((sp.center.y - g_dt.pos_y) , (sp.center.x - g_dt.pos_x));
     plyr_angle = g_dt.plyr_angl - (FOV / 2);
     sp.angle = sp.angle - plyr_angle;
-     if (sp.angle > (180 * RAD))
-        sp.angle -= (360 * RAD);
-    else if (sp.angle < (-180 * RAD))
-        sp.angle += (360 * RAD);
+    sp.angle = angle(sp.angle);
     g_dt.distpplane = (g_dt.rsltn_w / 2) / tan(FOV / 2.3);
     sp.height = (TILE / sp.dist_plyr_sp) * g_dt.distpplane ;
     sp.height_s = -sp.height / 2 + (g_dt.rsltn_h) / 2;
@@ -55,17 +54,16 @@ void    sprite_calc(t_list **list)
 void    render_one_sprite(t_dt *dt, t_list **list)
 {
     int start;
-    int x_offs;
-    int y_offs;
     int y;
     int d;
     t_list *disp;
 
+    d = 0;
     disp = *list;
     start = disp->sp.width_s;
     while (start < disp->sp.width_e && disp->sp.width_s < g_dt.rsltn_w)
     {
-        x_offs = ((64 * (start - disp->sp.width_s) * TILE / disp->sp.height) / 64);
+        g_dt.x_offs = ((64 * (start - disp->sp.width_s) * TILE / disp->sp.height) / 64);
         y = disp->sp.height_s;
         if (start >= 0 && start <= g_dt.rsltn_w)
         {
@@ -73,15 +71,32 @@ void    render_one_sprite(t_dt *dt, t_list **list)
             {
                 while (y < disp->sp.height_e)
                 {
-                    d = y + (disp->sp.height / 2) - (g_dt.rsltn_h / 2);
-                    y_offs = d * ((TILE * 1.0) / disp->sp.height);
-                        g_dt.color = (int)(g_txt.sprite_txt[(int)(64 * y_offs + x_offs)]);
-                        if (g_dt.color != 0)
-                            g_dt.addrmlx[y * g_dt.rsltn_w + start] = g_dt.color;
+                    print_it(d,y,start,list);
                     y++;
                 }
             }
         }
         start++;
     }
+}
+
+float angle(float sp_angle)
+{
+    if (sp_angle > (180 * RAD))
+        sp_angle -= (360 * RAD);
+    else if (sp_angle < (-180 * RAD))
+        sp_angle += (360 * RAD); 
+    return (sp_angle);
+}
+
+void    print_it(int d, int y, int start, t_list **list)
+{
+    t_list *disp;
+
+    disp = *list;
+    d = y + (disp->sp.height / 2) - (g_dt.rsltn_h / 2);
+    g_dt.y_offs = d * ((TILE * 1.0) / disp->sp.height);
+    g_dt.color = (int)(g_txt.sprite_txt[(int)(64 * g_dt.y_offs + g_dt.x_offs)]);
+    if (g_dt.color != 0)
+        g_dt.addrmlx[y * g_dt.rsltn_w + start] = g_dt.color;
 }

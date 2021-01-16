@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 11:37:07 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/11 10:07:58 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/16 10:35:26 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int     check_exists(t_list *lst, float x, float y)
     return (0);
 }
 
-float		normalize_sp_angle(float angle)
+void    check_sprite(int i, int j)
 {
-    if ((g_dt.plyr_angl - (FOV / 2)) - angle > M_PI)
-		angle = angle + 2 * M_PI;
-	if (angle - (g_dt.plyr_angl - (FOV / 2)) > M_PI)
-		angle = angle - 2 * M_PI;
-    return (angle);
+    if ( g_dt.mmp[i][j + 1] == 32 ||  g_dt.mmp[i][j - 1] == 32 
+        ||  g_dt.mmp[i - 1][j] == 32
+                    ||  g_dt.mmp[i + 1][j] == 32)
+                        print_error("map invalid ,sprite next to space!\n");
+    g_dt.nb_sprite++;
 }

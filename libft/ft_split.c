@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:06:33 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/15 19:53:19 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:45:08 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,17 @@ char			**ft_split(char const *s, char c)
 	}
 	dst[j] = NULL;
 	return (dst);
+}
+
+void	freee(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

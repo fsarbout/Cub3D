@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 13:46:23 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/11 10:44:32 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:29:31 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,9 @@ void    parse_map(char **map, int i, int j)
         }
         i++; 
     }
+    free(map);
 }
-void    check_sprite(int i, int j)
-{
-    if ( g_dt.mmp[i][j + 1] == 32 ||  g_dt.mmp[i][j - 1] == 32 
-        ||  g_dt.mmp[i - 1][j] == 32
-                    ||  g_dt.mmp[i + 1][j] == 32)
-                        print_error("map invalid ,sprite next to space!\n");
-    g_dt.nb_sprite++;
-}
+
 void    fill_maplines(char **map)
 {   
     int i;

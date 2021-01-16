@@ -79,6 +79,8 @@ typedef struct s_dt
 	float 	ystep;
 	int 	cllng_color;
 	int 	flr_color;
+	int 	x_offs;
+    int 	y_offs;
 }			t_dt;
 
 
@@ -89,8 +91,8 @@ typedef struct  s_mv
 	float 	walkdirsd;
 	float	mvspd;
 	float	rtnspd;
-	float 	newxplyr;
-    float 	newyplyr;
+	float 	newx;
+    float 	newy;
 	int 	raydown;
     int 	rayup;
     int 	rayleft;

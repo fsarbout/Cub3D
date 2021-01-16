@@ -53,7 +53,6 @@ void        draw_circle_s(int xstart, int ystart);
 t_coor    	get_center_coor(float spx, float spy);
 void        sprite_calc(t_list **list);
 void        lst_add_back(t_list **head, t_sp spr);
-float       normalize_sp_angle(float angle);
 void        sort_list(t_list *lst);
 void        clear_list(t_list **lst);
 void        render_sprite(t_dt *dt, t_list **list);
@@ -62,5 +61,11 @@ void        draw_sprite(t_list **list, t_dt *dt);
 void        render_one_sprite(t_dt *dt, t_list **list);
 int         commas(char *ptr);
 int		    create_trgb(int t, int r, int g, int b);
+int         check_rsltn(char *resolution);
+void        wall_floor(int y, int i, int j);
+void        get_texture(void);
+float       angle(float sp_angle);
+void        print_it(int d, int y, int start, t_list **list);
+void	    freee(char **tab);
 
 #endif

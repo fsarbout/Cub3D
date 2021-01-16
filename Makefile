@@ -6,7 +6,7 @@
 #    By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 18:02:45 by fsarbout          #+#    #+#              #
-#    Updated: 2021/01/08 15:41:36 by fsarbout         ###   ########.fr        #
+#    Updated: 2021/01/16 12:34:08 by fsarbout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,22 +15,23 @@ NAME = cub3D
 CC = gcc #-Wall -Wextra -Werror
 
 #mac compliation
-#CFLAGS = -g -lmlx -framework OpenGL  -framework AppKit -fsanitize=address -o $(NAME)
+CFLAGS = ./libft/libft.a -lmlx -framework OpenGL  -framework AppKit -o $(NAME)
 
 
 #linux compilation
-CFLAGS = -g -lm -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -fsanitize=address
+#CFLAGS = -g -lm -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -fsanitize=address
 
-SRC =   ./srcs/*.c ./libft/*.c
+SRC =   ./srcs/*.c
+
 
 all : $(NAME)
 
 $(NAME):
-	@$(CC) $(SRC) $(CFLAGS) -O3 -o $(NAME) && ./cub3D map.cub
+	@cd libft && make re
+	@$(CC) $(SRC) $(CFLAGS)
 	
-#don't forget the optimazation flag
-
 clean:
+	@cd libft && make clean
 	@rm -rf $(NAME)
 
 fclean: clean

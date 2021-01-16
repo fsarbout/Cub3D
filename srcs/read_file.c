@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 00:14:05 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/01 11:59:28 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/16 12:47:46 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void   collect_data(char *line, char **av)
     map = "";
     line = NULL; 
     struct_intialize();
-    if (!(fd = open(av[1], O_RDONLY)))
+    if ((fd = open(av[1], O_RDONLY)) == -1)
         print_error("   invalid file\n");
     while (get_next_line(fd, &line) && i < 8)
     {  
@@ -92,7 +92,10 @@ void    check_elements(char **element)
     else if (!ft_strncmp(element[0] , "S" , 2) && (lenght(element) == 2))
         treat_sprite(element);
     else
+    {
+        freee(element);
         print_error("  wrong element!\n");
+    }
 }
 
 void    treat_txt(char **element_data, void **img, int *flag)
@@ -100,5 +103,9 @@ void    treat_txt(char **element_data, void **img, int *flag)
     *flag = 1;
     if (!(*img = (int*)mlx_xpm_file_to_image(g_dt.mlx, element_data[1]
     ,&g_dt.width, &g_dt.height)))
+    {
+        freee(element_data);
         print_error("   texture path invalid\n");
+    }
+     freee(element_data);
 }
