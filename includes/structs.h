@@ -1,38 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/16 19:19:36 by fsarbout          #+#    #+#             */
+/*   Updated: 2021/01/17 09:59:25 by fsarbout         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef STRUCTS_H
-#define STRUCTS_H
+# define STRUCTS_H
 
-
-typedef struct s_dt
+typedef	struct	s_dt
 {
-	float   perpdist;
-    float   distpplane;
-    float   prjctwallheight;
-    int     wallstripheight;
-    int     walltop;
-    int     wallbttm;
-    int     dist_from_top;
+	float	perpdist;
+	float	distpplane;
+	float	prjctwallheight;
+	int		wallstripheight;
+	int		walltop;
+	int		wallbttm;
+	int		top;
 	int		color;
 	int		size_line;
 	int		sp;
 	int		r;
 	int		rsltn_w;
-	int 	rsltn_h;
+	int		rsltn_h;
 	int		f;
 	char	**mmp;
 	int		flr_r;
 	int		flr_g;
-	int 	flr_b;
+	int		flr_b;
 	int		c;
-	int 	cllng_r;
-	int 	cllng_g;
-	int 	cllng_b;
-	int 	n;
+	int		cllng_r;
+	int		cllng_g;
+	int		cllng_b;
+	int		n;
 	int		so;
 	int		e;
 	int		w;
-	int 	spi;
-	int 	spj;
+	int		spi;
+	int		spj;
 	int		width;
 	int		height;
 	char	*n_path;
@@ -42,10 +52,10 @@ typedef struct s_dt
 	void	*mlx;
 	int		plyr;
 	float	plyr_angl;
-	float 	pos_x;
-	float 	pos_y;
-	int 	nbr_lines;
-	int 	endian;
+	float	pos_x;
+	float	pos_y;
+	int		nbr_lines;
+	int		endian;
 	int		long_l;
 	int		size_l;
 	int		*addrmlx;
@@ -58,96 +68,108 @@ typedef struct s_dt
 	float	verwllhity;
 	float	wallhitx;
 	float	wallhity;
-	float 	distance;
-	float 	hhitdis;
-	float 	vhitdis;
-	float 	verthit;
-	float 	horzhit;
+	float	distance;
+	float	hhitdis;
+	float	vhitdis;
+	float	verthit;
+	float	horzhit;
 	int		numrays;
-	float  	checkx;
-	float  	checky;
-	float 	interx;
-	float 	intery;
-	float 	nxtvrthitx;
+	float	checkx;
+	float	checky;
+	float	interx;
+	float	intery;
+	float	nxtvrthitx;
 	float	nxtvrthity;
-	float 	nxthorhitx;
+	float	nxthorhitx;
 	float	nxthorhity;
-	/////////////////////////////
-	float 	angle_plyr;
-	int 	nb_sprite;
-	float 	xstep;
-	float 	ystep;
-	int 	cllng_color;
-	int 	flr_color;
-	int 	x_offs;
-    int 	y_offs;
-}			t_dt;
+	float	angle_plyr;
+	int		nb_sprite;
+	float	xstep;
+	float	ystep;
+	int		cllng_color;
+	int		flr_color;
+	int		x_of;
+	int		y_of;
+	int		save;
+}				t_dt;
 
-
-typedef struct  s_mv
+typedef	struct	s_mv
 {
 	float	turndir;
 	float	walkdir;
-	float 	walkdirsd;
+	float	walkdirsd;
 	float	mvspd;
 	float	rtnspd;
-	float 	newx;
-    float 	newy;
-	int 	raydown;
-    int 	rayup;
-    int 	rayleft;
-    int 	rayright;
-	float 	raydist;
-	float 	rayangle;
-}			t_mv;
+	float	newx;
+	float	newy;
+	int		raydown;
+	int		rayup;
+	int		rayleft;
+	int		rayright;
+	float	raydist;
+	float	rayangle;
+}				t_mv;
 
 typedef struct	s_txt
 {
-	int 	*addr_txt[4];
+	int		*addr_txt[4];
 	int		*sprite_txt;
 	void	*so_txt;
 	void	*no_txt;
 	void	*ea_txt;
 	void	*we_txt;
-	int 	txt_offsetx;
-    int 	txt_offsety;
-	int 	size_l_sp;
+	int		txt_offsetx;
+	int		txt_offsety;
+	int		size_l_sp;
 	void	*sp_txt;
 }				t_txt;
 
-typedef struct s_coor
+typedef	struct	s_coor
 {
 	float x;
 	float y;
-}	t_coor;
+}				t_coor;
 
-typedef struct s_sp
+typedef	struct	s_sp
 {
-	int x;
-	int y;
-	t_coor center;
-	float sp_hordist;
-	float sp_verdist;
-	float dist_plyr_sp;
-	float angle;
-	int 	horzhit;	
-	int verthit;
-	int height;
-	int height_s;
-	int height_e;
-	int width_s;
-	int width_e;
-}	t_sp;
+	int		x;
+	int		y;
+	t_coor	center;
+	float	sp_hordist;
+	float	sp_verdist;
+	float	dist_plyr_sp;
+	float	angle;
+	int		horzhit;
+	int		verthit;
+	int		height;
+	int		height_s;
+	int		height_e;
+	int		width_s;
+	int		width_e;
+}				t_sp;
 
-typedef struct	s_list
+typedef struct	s_bmp
 {
-	t_sp 	sp;
-	struct	s_list *next;
+	char	header[54];
+	int		filesize;
+	int		bfoff_bits;
+	int		bisize;
+	int		bi_planes;
+	int		bitcount;
+	int		imagesize;
+	int		width_in_bytes;
+	int		fd;
+	int		pos;
+}				t_bmp;
+
+typedef	struct	s_list
+{
+	t_sp			sp;
+	struct s_list	*next;
 }				t_list;
 
-t_txt 	g_txt;
+t_txt	g_txt;
 t_mv	g_mv;
 t_dt	g_dt;
-
 
 #endif

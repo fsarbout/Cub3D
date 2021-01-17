@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 17:16:59 by fsarbout          #+#    #+#             */
-/*   Updated: 2020/11/23 10:50:03 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/17 07:58:44 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t size)
 size_t		ft_strlcpy1(char *dst, const char *src, size_t size)
 {
 	size_t	i;
-	
+
 	if (size && dst != src)
 	{
 		i = 0;

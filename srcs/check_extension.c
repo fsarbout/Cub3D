@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   check_extension.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/31 17:48:53 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/17 07:16:58 by fsarbout         ###   ########.fr       */
+/*   Created: 2021/01/17 09:34:43 by fsarbout          #+#    #+#             */
+/*   Updated: 2021/01/17 11:08:28 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	print_error(char *string)
+void	check_extension(char *s)
 {
-	ft_putstr("Error :\n");
-	ft_putstr(string);
-	ft_putstr("         the program detects the first error it faced\n");
-	if (g_dt.mmp)
-		freee(g_dt.mmp);
-	exit(EXIT_FAILURE);
+	if (!reversecheck(s, ".cub"))
+		print_error("	File extention should be .cub!\n");
+}
+
+int		reversecheck(char *s, char *str)
+{
+	int i;
+	int j;
+
+	i = ft_strlen(s);
+	j = ft_strlen(str);
+	while (j != -1)
+	{
+		if (s[i] != str[j] || i < j)
+			return (0);
+		i--;
+		j--;
+	}
+	return (1);
 }
