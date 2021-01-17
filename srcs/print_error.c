@@ -14,9 +14,8 @@
 
 void	print_error(char *string)
 {
-	ft_putstr("Error :\n");
+	ft_putstr("Error\n");
 	ft_putstr(string);
-	ft_putstr("         the program detects the first error it faced\n");
 	if (g_dt.mmp)
 		freee(g_dt.mmp);
 	exit(EXIT_FAILURE);

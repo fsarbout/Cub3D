@@ -16,6 +16,11 @@ CC = gcc -Wall -Wextra -Werror
 
 CFLAGS = ./libft/libft.a -lmlx -framework OpenGL  -framework AppKit
 
+HEADER = cub3d.h\
+		functions.h\
+		structs.h\
+		macros.h
+
 SRC = srcs/hook.c\
 	srcs/intersections.c\
  	srcs/list.c\
@@ -34,7 +39,7 @@ SRC = srcs/hook.c\
 
 all : $(NAME)
 
-$(NAME):
+$(NAME): $(SRC) $(HEADER)
 	@cd libft && make re
 	@$(CC) $(SRC) $(CFLAGS) -o $(NAME)
 	
