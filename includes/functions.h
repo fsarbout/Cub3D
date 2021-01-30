@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 19:18:29 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/17 12:10:48 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/30 08:11:59 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,9 @@ void	check_extension(char *s);
 void	check_save(char *ptr);
 void	render_bmp_img(void);
 int		reversecheck(char *s, char *str);
+void 	print_line (int x1, int y1);
+void    draw_map(void);
+void    rect(int tilex, int tiley,int color);
+void	draw_circle(int color);
 
 #endif

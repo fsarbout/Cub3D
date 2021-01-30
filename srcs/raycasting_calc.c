@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 00:34:37 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/17 08:05:03 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/30 08:43:55 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	cast_rays(t_dt *dt, t_mv *mv, t_list **list)
 	{
 		fix_cast_angle();
 		ray_casting(dt, mv, i, list);
+		print_line(dt[i].wallhitx * MINIM, dt[i].wallhity * MINIM);
 		g_mv.rayangle += FOV / g_dt.numrays;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:37:57 by fsarbout          #+#    #+#             */
-/*   Updated: 2021/01/17 10:58:00 by fsarbout         ###   ########.fr       */
+/*   Updated: 2021/01/30 08:15:15 by fsarbout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	update(void)
 	move_playeer();
 	cast_rays(dt, mv, &list);
 	render3d(dt, mv);
+	draw_map();
+    cast_rays(dt,mv, &list);
 	if (list)
 	{
 		sort_list(list);

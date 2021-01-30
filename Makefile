@@ -6,7 +6,7 @@
 #    By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 18:02:45 by fsarbout          #+#    #+#              #
-#    Updated: 2021/01/17 11:41:45 by fsarbout         ###   ########.fr        #
+#    Updated: 2021/01/30 08:14:52 by fsarbout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,6 @@ NAME = cub3D
 CC = gcc -Wall -Wextra -Werror
 
 CFLAGS = ./libft/libft.a -lmlx -framework OpenGL  -framework AppKit
-
-HEADER = cub3d.h\
-		functions.h\
-		structs.h\
-		macros.h
 
 SRC = srcs/hook.c\
 	srcs/intersections.c\
@@ -35,11 +30,12 @@ SRC = srcs/hook.c\
 	srcs/utils.c\
 	srcs/bmp.c\
 	srcs/check_extension.c\
- 	srcs/collection.c 
+ 	srcs/collection.c\
+	srcs/draw_2d.c
 
 all : $(NAME)
 
-$(NAME): $(SRC) $(HEADER)
+$(NAME): $(SRC)
 	@cd libft && make re
 	@$(CC) $(SRC) $(CFLAGS) -o $(NAME)
 	
