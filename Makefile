@@ -6,15 +6,24 @@
 #    By: fsarbout <fsarbout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 18:02:45 by fsarbout          #+#    #+#              #
-#    Updated: 2021/01/30 08:14:52 by fsarbout         ###   ########.fr        #
+#    Updated: 2021/02/08 10:53:58 by fsarbout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
-CC = gcc -Wall -Wextra -Werror
+CC = gcc 
 
-CFLAGS = ./libft/libft.a -lmlx -framework OpenGL  -framework AppKit
+CFLAGS = -Wall -Wextra -Werror
+
+MLX_OSX	= ./libft/libft.a -lmlx -framework OpenGL -framework AppKit
+
+MLX_UBU	= ./libft/libft.a -lm -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11
+
+_MLX_ = $(MLX_OSX)
+ifeq ($(shell uname), Linux)
+	_MLX_ = $(MLX_UBU)
+endif
 
 SRC = srcs/hook.c\
 	srcs/intersections.c\
@@ -37,7 +46,7 @@ all : $(NAME)
 
 $(NAME): $(SRC)
 	@cd libft && make re
-	@$(CC) $(SRC) $(CFLAGS) -o $(NAME)
+	@$(CC) $(SRC) $(CFLAGS) -o $(NAME) $(_MLX_)
 	
 clean:
 	@cd libft && make clean
